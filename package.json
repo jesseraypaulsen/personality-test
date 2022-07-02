@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "clean": "rm -rf dist && rm -rf .parcel-cache"
+  },
+  "dependencies": {
+    "@alheimsins/b5-result-text": "^5.0.5",
+    "@alheimsins/bigfive-calculate-score": "^3.0.3",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.6",
+    "knuth-shuffle": "^1.0.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
