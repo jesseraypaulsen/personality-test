@@ -16,10 +16,10 @@ export function App() {
   const [currentItem, setCurrentItem] = useState(1);
 
   useEffect(() => {
-    (async () => {
-      await setInventory(items);
+    (() => {
+      setInventory(items);
       console.log(inventory);
-    })(); // using async IIFE because setState is asynchronous
+    })();
   }, []);
-  return <InventoryBar items={items} />;
+  return <InventoryBar items={inventory} />;
 }
