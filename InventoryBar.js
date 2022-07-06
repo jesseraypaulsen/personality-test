@@ -7,6 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Drawer from "@mui/material/Drawer";
 import ListIcon from "@mui/icons-material/List";
 import DoneIcon from "@mui/icons-material/Done";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 export default function BasicList(props) {
@@ -23,7 +24,6 @@ export default function BasicList(props) {
             width: "100%",
             maxWidth: 360,
             bgcolor: "background.paper",
-            border: "1px dotted cyan",
           }}
         >
           <List>
@@ -31,14 +31,24 @@ export default function BasicList(props) {
               return (
                 <ListItem disablePadding key={item.id}>
                   <ListItemButton onClick={closeDrawer}>
-                    <ListItemText primary={`${item.num} - ${item.text}`} />
-                    <ListItemIcon>
-                      {item.score ? (
-                        <DoneIcon sx={{ marginLeft: "1em" }} />
-                      ) : (
-                        ""
-                      )}
-                    </ListItemIcon>
+                    {item.score ? (
+                      <>
+                        <ListItemIcon>
+                          <DoneIcon sx={{ marginLeft: "1em" }} />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <span style={{ color: "gray" }}>{item.num}. </span>
+                          {/* <Box color="grey">{item.num}.</Box> */}
+                          {/* <Box sx={{ color: "grey" }}>{item.num}.</Box> */}
+                          <span>{item.text}</span>
+                        </ListItemText>
+                      </>
+                    ) : (
+                      <ListItemText inset>
+                        <span style={{ color: "gray" }}>{item.num}. </span>
+                        <span>{item.text}</span>{" "}
+                      </ListItemText>
+                    )}
                   </ListItemButton>
                 </ListItem>
               );
