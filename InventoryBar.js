@@ -5,25 +5,23 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Drawer from "@mui/material/Drawer";
-import ListIcon from "@mui/icons-material/List";
 import DoneIcon from "@mui/icons-material/Done";
-import Typography from "@mui/material/Typography";
+//import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 export default function BasicList(props) {
   //const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
-  const { inventory, open, setOpen } = props;
+  const { inventory, open, setOpen, selectedIndex, setSelectedIndex } = props;
   const closeDrawer = () => {
     setOpen(false);
   };
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     closeDrawer();
+    //TODO: open the card for the selected item
   };
   return (
     <>
-      <ListIcon fontSize="large" onClick={() => setOpen(true)} />
       <Drawer open={open} onClose={() => setOpen(false)}>
         <Box
           sx={{

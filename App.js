@@ -6,7 +6,14 @@ import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import ListIcon from "@mui/icons-material/List";
 
+const editText = (text) => {
+  let firstChar = text.charAt(0);
+  let lowerFirstChar = firstChar.toLowerCase();
+  let decapText = text.slice(1);
+  return "I " + lowerFirstChar + decapText + ".";
+};
 // arg true/false for shuffling the items
 const items = getItems(true).map((item, n) => {
   if (n < 10) {
@@ -15,11 +22,7 @@ const items = getItems(true).map((item, n) => {
     item.score = null;
   }
 
-  let firstChar = item.text.charAt(0);
-  let lowerFirstChar = firstChar.toLowerCase();
-  let decapText = item.text.slice(1);
-  let newText = "I " + lowerFirstChar + decapText + ".";
-  item.text = newText;
+  item.text = editText(item.text);
   return item;
 });
 
@@ -28,6 +31,7 @@ export function App() {
   const [answers, setAnswers] = useState([]);
   const [currentItem, setCurrentItem] = useState(1);
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   useEffect(() => {
     (() => {
@@ -37,7 +41,14 @@ export function App() {
   }, []);
   return (
     <>
-      <InventoryBar inventory={inventory} open={open} setOpen={setOpen} />
+      <ListIcon fontSize="large" onClick={() => setOpen(true)} />
+      <InventoryBar
+        inventory={inventory}
+        open={open}
+        setOpen={setOpen}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
       <Container maxWidth="sm" sx={{ backgroundColor: "primary.light" }}>
         <Card
           sx={{
@@ -47,7 +58,9 @@ export function App() {
           }}
         >
           {/* mx is margin-left and margin-right; see https://mui.com/system/the-sx-prop/#spacing */}
-          {inventory[0] ? inventory[0].text : "loading"}
+          {inventory[selectedIndex - 1]
+            ? inventory[selectedIndex - 1].text
+            : "loading"}
         </Card>
       </Container>
     </>
