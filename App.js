@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import ListIcon from "@mui/icons-material/List";
+import QuestionCard from "./QuestionCard";
 
 const editText = (text) => {
   let firstChar = text.charAt(0);
@@ -29,7 +29,6 @@ const items = getItems(true).map((item, n) => {
 export function App() {
   const [inventory, setInventory] = useState([]);
   const [answers, setAnswers] = useState([]);
-  const [currentItem, setCurrentItem] = useState(1);
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -50,18 +49,7 @@ export function App() {
         setSelectedIndex={setSelectedIndex}
       />
       <Container maxWidth="sm" sx={{ backgroundColor: "primary.light" }}>
-        <Card
-          sx={{
-            maxWidth: 345,
-            backgroundColor: "primary.dark",
-            mx: "auto",
-          }}
-        >
-          {/* mx is margin-left and margin-right; see https://mui.com/system/the-sx-prop/#spacing */}
-          {inventory[selectedIndex - 1]
-            ? inventory[selectedIndex - 1].text
-            : "loading"}
-        </Card>
+        <QuestionCard selectedItem={inventory[selectedIndex - 1]} />
       </Container>
     </>
   );
