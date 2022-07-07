@@ -14,7 +14,7 @@ const items = getItems(true).map((item, n) => {
   } else {
     item.score = null;
   }
-  //item.text = item.text[0].toLowerCase();
+
   let firstChar = item.text.charAt(0);
   let lowerFirstChar = firstChar.toLowerCase();
   let decapText = item.text.slice(1);
@@ -27,6 +27,7 @@ export function App() {
   const [inventory, setInventory] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [currentItem, setCurrentItem] = useState(1);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (() => {
@@ -36,7 +37,7 @@ export function App() {
   }, []);
   return (
     <>
-      <InventoryBar items={inventory} />
+      <InventoryBar inventory={inventory} open={open} setOpen={setOpen} />
       <Container maxWidth="sm" sx={{ backgroundColor: "primary.light" }}>
         <Card
           sx={{

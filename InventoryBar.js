@@ -11,9 +11,15 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 export default function BasicList(props) {
-  const [open, setOpen] = useState(false);
+  //const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const { inventory, open, setOpen } = props;
   const closeDrawer = () => {
     setOpen(false);
+  };
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+    closeDrawer();
   };
   return (
     <>
@@ -27,10 +33,13 @@ export default function BasicList(props) {
           }}
         >
           <List>
-            {props.items.map((item) => {
+            {inventory.map((item) => {
               return (
                 <ListItem disablePadding key={item.id}>
-                  <ListItemButton onClick={closeDrawer}>
+                  <ListItemButton
+                    onClick={(event) => handleListItemClick(event, item.num)}
+                    selected={selectedIndex === item.num}
+                  >
                     {item.score ? (
                       <>
                         <ListItemText>
