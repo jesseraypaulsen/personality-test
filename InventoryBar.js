@@ -34,19 +34,27 @@ export default function BasicList(props) {
                     {item.score ? (
                       <>
                         <ListItemIcon>
-                          <DoneIcon sx={{ marginLeft: "1em" }} />
+                          {/* <DoneIcon sx={{ marginLeft: "1em" }} /> */}
+                          <DoneIcon />
                         </ListItemIcon>
                         <ListItemText>
-                          <span style={{ color: "gray" }}>{item.num}. </span>
-                          {/* <Box color="grey">{item.num}.</Box> */}
-                          {/* <Box sx={{ color: "grey" }}>{item.num}.</Box> */}
-                          <span>{item.text}</span>
+                          {/* <Box
+                            sx={{ color: "text.secondary", display: "inline" }}
+                          > */}
+                          <Box color="text.secondary" display="inline">
+                            {item.num}.{" "}
+                          </Box>
+                          {item.text}
                         </ListItemText>
                       </>
                     ) : (
                       <ListItemText inset>
-                        <span style={{ color: "gray" }}>{item.num}. </span>
-                        <span>{item.text}</span>{" "}
+                        <Box
+                          sx={{ color: "text.secondary", display: "inline" }}
+                        >
+                          {item.num}.{" "}
+                        </Box>
+                        {item.text}
                       </ListItemText>
                     )}
                   </ListItemButton>
