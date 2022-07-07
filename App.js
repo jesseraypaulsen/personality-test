@@ -14,7 +14,12 @@ const items = getItems(true).map((item, n) => {
   } else {
     item.score = null;
   }
-  item.text = "I " + item.text.toLowerCase() + ".";
+  //item.text = item.text[0].toLowerCase();
+  let firstChar = item.text.charAt(0);
+  let lowerFirstChar = firstChar.toLowerCase();
+  let decapText = item.text.slice(1);
+  let newText = "I " + lowerFirstChar + decapText + ".";
+  item.text = newText;
   return item;
 });
 

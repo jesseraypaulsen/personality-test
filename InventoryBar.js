@@ -33,10 +33,6 @@ export default function BasicList(props) {
                   <ListItemButton onClick={closeDrawer}>
                     {item.score ? (
                       <>
-                        <ListItemIcon>
-                          {/* <DoneIcon sx={{ marginLeft: "1em" }} /> */}
-                          <DoneIcon />
-                        </ListItemIcon>
                         <ListItemText>
                           {/* <Box
                             sx={{ color: "text.secondary", display: "inline" }}
@@ -46,9 +42,12 @@ export default function BasicList(props) {
                           </Box>
                           {item.text}
                         </ListItemText>
+                        <ListItemIcon>
+                          <DoneIcon />
+                        </ListItemIcon>
                       </>
                     ) : (
-                      <ListItemText inset>
+                      <ListItemText>
                         <Box
                           sx={{ color: "text.secondary", display: "inline" }}
                         >
