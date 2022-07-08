@@ -23,19 +23,22 @@ const items = getItems(true).map((item, n) => {
   }
 
   item.text = editText(item.text);
+  //console.log(item);
   return item;
 });
 
 export function App() {
   const [inventory, setInventory] = useState([]);
-  const [answers, setAnswers] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedItem, setSelectedItem] = useState({
+    text: "loading",
+    choices: null,
+  });
 
   useEffect(() => {
     (() => {
       setInventory(items);
-      console.log(inventory);
+      //setSelectedItem(inventory[0]);
     })();
   }, []);
   return (
@@ -45,11 +48,11 @@ export function App() {
         inventory={inventory}
         open={open}
         setOpen={setOpen}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
       />
       <Container maxWidth="sm" sx={{ backgroundColor: "primary.light" }}>
-        <QuestionCard selectedItem={inventory[selectedIndex - 1]} />
+        <QuestionCard selectedItem={selectedItem} />
       </Container>
     </>
   );

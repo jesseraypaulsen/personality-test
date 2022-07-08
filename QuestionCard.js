@@ -9,7 +9,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 export default function QuestionCard(props) {
   const { selectedItem } = props;
-  console.log(selectedItem);
+  console.log(props);
   return (
     <Card
       sx={{
@@ -27,20 +27,23 @@ export default function QuestionCard(props) {
   );
 }
 
-function RadioButtonsGroup({ selectedItem }) {
-  const { choices } = selectedItem;
+function RadioButtonsGroup(props) {
+  console.log(props.selectedItem);
+  const { choices } = props.selectedItem;
   return (
     <FormControl>
       <RadioGroup aria-labelledby="radio-answer" name="radio-buttons-group">
-        {choices.map((choice) => {
-          return (
-            <FormControlLabel
-              value={choice.score}
-              control={<Radio />}
-              label={choice.text}
-            />
-          );
-        })}
+        {choices &&
+          choices.map((choice) => {
+            return (
+              <FormControlLabel
+                value={choice.score}
+                control={<Radio />}
+                label={choice.text}
+                key={choice.text}
+              />
+            );
+          })}
       </RadioGroup>
     </FormControl>
   );

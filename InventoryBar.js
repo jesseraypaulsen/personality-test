@@ -10,13 +10,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
 
 export default function BasicList(props) {
-  //const [open, setOpen] = useState(false);
-  const { inventory, open, setOpen, selectedIndex, setSelectedIndex } = props;
+  const { inventory, open, setOpen, selectedItem, setSelectedItem } = props;
   const closeDrawer = () => {
     setOpen(false);
   };
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+  const handleListItemClick = (event, item) => {
+    setSelectedItem(item);
     closeDrawer();
     //TODO: open the card for the selected item
   };
@@ -35,8 +34,8 @@ export default function BasicList(props) {
               return (
                 <ListItem disablePadding key={item.id}>
                   <ListItemButton
-                    onClick={(event) => handleListItemClick(event, item.num)}
-                    selected={selectedIndex === item.num}
+                    onClick={(event) => handleListItemClick(event, item)}
+                    selected={selectedItem.id === item.id}
                   >
                     {item.score ? (
                       <>
