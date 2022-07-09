@@ -31,7 +31,7 @@ export function App() {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({
-    text: "loading",
+    text: "",
     choices: null,
   });
 
@@ -51,7 +51,10 @@ export function App() {
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
       />
-      <Container maxWidth="sm" sx={{ backgroundColor: "primary.light" }}>
+      <Container
+        maxWidth="sm"
+        //sx={{ backgroundColor: "primary.light" }}
+      >
         <QuestionCard selectedItem={selectedItem} />
       </Container>
     </>

@@ -40,9 +40,6 @@ export default function BasicList(props) {
                     {item.score ? (
                       <>
                         <ListItemText>
-                          {/* <Box
-                            sx={{ color: "text.secondary", display: "inline" }}
-                          > */}
                           <Box color="text.secondary" display="inline">
                             {item.num}.{" "}
                           </Box>
