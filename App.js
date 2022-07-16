@@ -4,7 +4,6 @@ const getResult = require("@alheimsins/b5-result-text");
 import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
 import ListIcon from "@mui/icons-material/List";
 import QuestionCard from "./QuestionCard";
 
@@ -16,14 +15,8 @@ const editText = (text) => {
 };
 // arg true/false for shuffling the items
 const items = getItems(true).map((item, n) => {
-  if (n < 10) {
-    item.score = 50;
-  } else {
-    item.score = null;
-  }
-
+  item.score = null;
   item.text = editText(item.text);
-  //console.log(item);
   return item;
 });
 
@@ -41,6 +34,25 @@ export function App() {
       //setSelectedItem(inventory[0]);
     })();
   }, []);
+
+  useEffect(() => {
+    console.log(selectedItem);
+  }, [selectedItem]);
+
+  const updateItemScore = (id, score) => {
+    let newScore = parseInt(score);
+    let freshInventory = inventory.map((item) => {
+      if (item.id === id) {
+        let newItem = { ...item, score: newScore };
+        setSelectedItem(newItem);
+        return newItem;
+      }
+      return item;
+    });
+    setInventory(freshInventory);
+    findItem(id);
+  };
+
   return (
     <>
       <ListIcon fontSize="large" onClick={() => setOpen(true)} />
@@ -55,7 +67,11 @@ export function App() {
         maxWidth="sm"
         //sx={{ backgroundColor: "primary.light" }}
       >
-        <QuestionCard selectedItem={selectedItem} />
+        <QuestionCard
+          selectedItem={selectedItem}
+          updateItemScore={updateItemScore}
+          key={selectedItem.id}
+        />
       </Container>
     </>
   );

@@ -6,8 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Drawer from "@mui/material/Drawer";
 import DoneIcon from "@mui/icons-material/Done";
-//import Typography from "@mui/material/Typography";
-import { useState } from "react";
 
 export default function BasicList(props) {
   const { inventory, open, setOpen, selectedItem, setSelectedItem } = props;
@@ -17,7 +15,6 @@ export default function BasicList(props) {
   const handleListItemClick = (event, item) => {
     setSelectedItem(item);
     closeDrawer();
-    //TODO: open the card for the selected item
   };
   return (
     <>
