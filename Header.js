@@ -10,23 +10,21 @@ export default function Header({ setOpen }) {
   return (
     <AppBar sx={{ position: "static" }}>
       <Toolbar sx={{ justifyContent: "space-evenly" }}>
-        <Box sx={{ border: "1px solid black" }}>
-          <Tooltip title="Inventory">
-            <ListIcon
-              fontSize="large"
-              onClick={() => setOpen(true)}
-              sx={{ cursor: "pointer" }}
-            />
-          </Tooltip>
-          <Tooltip title="Results">
-            <BarChartIcon
-              fontSize="large"
-              color={true ? "disabled" : "primary"}
-              sx={{ cursor: "pointer" }}
-            />
-          </Tooltip>
-        </Box>
-        <Typography>O.C.E.A.N. Personality Test</Typography>
+        <Tooltip title="Inventory">
+          <ListIcon
+            fontSize="large"
+            onClick={() => setOpen(true)}
+            sx={{ cursor: "pointer" }}
+          />
+        </Tooltip>
+        <Typography variant="h3">O.C.E.A.N. Personality Test</Typography>
+        <Tooltip title="Results">
+          <BarChartIcon
+            fontSize="large"
+            color={true ? "disabled" : "primary"}
+            sx={{ cursor: "pointer" }}
+          />
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );
