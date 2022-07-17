@@ -4,8 +4,9 @@ const getResult = require("@alheimsins/b5-result-text");
 import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
-import ListIcon from "@mui/icons-material/List";
 import QuestionCard from "./QuestionCard";
+import Box from "@mui/material/Box";
+import Header from "./Header.js";
 
 const editText = (text) => {
   let firstChar = text.charAt(0);
@@ -55,7 +56,7 @@ export function App() {
 
   return (
     <>
-      <ListIcon fontSize="large" onClick={() => setOpen(true)} />
+      <Header setOpen={setOpen} />
       <InventoryBar
         inventory={inventory}
         open={open}
