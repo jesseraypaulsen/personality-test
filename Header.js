@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 
 export default function Header({ setOpen }) {
   return (
-    <AppBar>
+    <AppBar sx={{ position: "static" }}>
       <Toolbar>
         <Box sx={{ border: "1px solid black" }}>
           <ListIcon

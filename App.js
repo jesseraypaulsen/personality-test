@@ -66,7 +66,10 @@ export function App() {
       />
       <Container
         maxWidth="sm"
-        //sx={{ backgroundColor: "primary.light" }}
+        sx={{
+          //backgroundColor: "primary.light"
+          marginTop: "3em",
+        }}
       >
         <QuestionCard
           selectedItem={selectedItem}
