@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import QuestionCard from "./QuestionCard";
 import Box from "@mui/material/Box";
 import Header from "./Header.js";
+import ManualStepper from "./ManualStepper";
 
 const editText = (text) => {
   let firstChar = text.charAt(0);
@@ -28,6 +29,7 @@ export function App() {
     text: "",
     choices: null,
   });
+  const [autoStep, setAutoStep] = useState(true);
 
   useEffect(() => {
     (() => {
@@ -40,29 +42,49 @@ export function App() {
     console.log(selectedItem);
   }, [selectedItem]);
 
-  const updateItemScore = (id, score) => {
+  const stepper = (nextIndex) => {
+    const nextItem = inventory[nextIndex];
+    setTimeout(() => {
+      setSelectedItem(nextItem);
+    }, 1000);
+  };
+
+  const toggleAutoStep = () => {
+    setAutoStep((prev) => !prev);
+  };
+
+  const updateItemScore = (id, nextIndex, score) => {
     let newScore = parseInt(score);
     let freshInventory = inventory.map((item) => {
       if (item.id === id) {
         let newItem = { ...item, score: newScore };
+        //change current item so that the radio button will be visibly selected,
+        //before the stepper is invoked.
         setSelectedItem(newItem);
         return newItem;
       }
       return item;
     });
     setInventory(freshInventory);
-    findItem(id);
+    if (autoStep) {
+      stepper(nextIndex);
+    }
   };
 
   return (
     <>
-      <Header setOpen={setOpen} />
+      <Header
+        setOpen={setOpen}
+        autoStep={autoStep}
+        toggleAutoStep={toggleAutoStep}
+      />
       <InventoryBar
         inventory={inventory}
         open={open}
         setOpen={setOpen}
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
+        toggleAutoStep={toggleAutoStep}
       />
       <Container
         maxWidth="sm"
@@ -76,6 +98,7 @@ export function App() {
           updateItemScore={updateItemScore}
           key={selectedItem.id}
         />
+        <ManualStepper />
       </Container>
     </>
   );

@@ -7,13 +7,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Drawer from "@mui/material/Drawer";
 import DoneIcon from "@mui/icons-material/Done";
 
-export default function BasicList(props) {
-  const { inventory, open, setOpen, selectedItem, setSelectedItem } = props;
+export default function BasicList({
+  inventory,
+  open,
+  setOpen,
+  selectedItem,
+  setSelectedItem,
+  toggleAutoStep,
+}) {
   const closeDrawer = () => {
     setOpen(false);
   };
   const handleListItemClick = (event, item) => {
     setSelectedItem(item);
+    toggleAutoStep();
     closeDrawer();
   };
   return (

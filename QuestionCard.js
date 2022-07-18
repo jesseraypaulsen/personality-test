@@ -47,7 +47,11 @@ function RadioButtonsGroup(props) {
             value={selectedItem.choice}
             onChange={(e) => {
               console.log(e.target.value);
-              updateItemScore(selectedItem.id, e.target.value);
+              updateItemScore(
+                selectedItem.id,
+                selectedItem.num,
+                e.target.value
+              );
             }}
           >
             {selectedItem.choices.map((choice) => {
