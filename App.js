@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
 import QuestionCard from "./QuestionCard";
-import Box from "@mui/material/Box";
 import Header from "./Header.js";
 import ManualStepper from "./ManualStepper";
 
@@ -49,6 +48,12 @@ export function App() {
     }, 1000);
   };
 
+  const stepUp = (id) => {
+    let currIndex = inventory.findIndex((item) => item.id === id);
+    let nextItem = inventory[currIndex + 1];
+    setSelectedItem(nextItem);
+  };
+
   const toggleAutoStep = () => {
     setAutoStep((prev) => !prev);
   };
@@ -58,8 +63,8 @@ export function App() {
     let freshInventory = inventory.map((item) => {
       if (item.id === id) {
         let newItem = { ...item, score: newScore };
-        //change current item so that the radio button will be visibly selected,
-        //before the stepper is invoked.
+        //update selectedItem so that the radio button will be visibly selected before
+        //stepper is invoked.
         setSelectedItem(newItem);
         return newItem;
       }
@@ -84,7 +89,7 @@ export function App() {
         setOpen={setOpen}
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
-        toggleAutoStep={toggleAutoStep}
+        setAutoStep={setAutoStep}
       />
       <Container
         maxWidth="sm"
@@ -98,7 +103,7 @@ export function App() {
           updateItemScore={updateItemScore}
           key={selectedItem.id}
         />
-        <ManualStepper />
+        <ManualStepper id={selectedItem.id} stepUp={stepUp} />
       </Container>
     </>
   );

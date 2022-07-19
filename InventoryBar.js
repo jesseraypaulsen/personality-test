@@ -13,14 +13,14 @@ export default function BasicList({
   setOpen,
   selectedItem,
   setSelectedItem,
-  toggleAutoStep,
+  setAutoStep,
 }) {
   const closeDrawer = () => {
     setOpen(false);
   };
   const handleListItemClick = (event, item) => {
     setSelectedItem(item);
-    toggleAutoStep();
+    setAutoStep(false);
     closeDrawer();
   };
   return (
