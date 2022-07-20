@@ -8,6 +8,10 @@ import QuestionCard from "./QuestionCard";
 import Header from "./Header.js";
 import ManualStepper from "./ManualStepper";
 
+// inventory should be props not state. only put id and score in state.
+// selectedItem should be a regular variable, not state.
+// index should be computed on each render, and then used to get selectedItem.
+
 const editText = (text) => {
   let firstChar = text.charAt(0);
   let lowerFirstChar = firstChar.toLowerCase();
@@ -23,6 +27,7 @@ const items = getItems(true).map((item, n) => {
 
 export function App() {
   const [inventory, setInventory] = useState([]);
+  const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({
     text: "",
@@ -41,6 +46,10 @@ export function App() {
     console.log(selectedItem);
   }, [selectedItem]);
 
+  useEffect(() => {
+    console.log(`scores: ${JSON.stringify(scores)}`);
+  }, [scores]);
+
   const stepper = (nextIndex) => {
     const nextItem = inventory[nextIndex];
     setTimeout(() => {
@@ -58,11 +67,17 @@ export function App() {
     setAutoStep((prev) => !prev);
   };
 
+  uniqByKeepLast = (data) => {
+    return [...new Map(data.map((x) => [x.id, x])).values()];
+  };
+
   const updateItemScore = (id, nextIndex, score) => {
     let newScore = parseInt(score);
     let freshInventory = inventory.map((item) => {
       if (item.id === id) {
         let newItem = { ...item, score: newScore };
+        const newScores = uniqByKeepLast([...scores, { id, value: newScore }]);
+        setScores(newScores);
         //update selectedItem so that the radio button will be visibly selected before
         //stepper is invoked.
         setSelectedItem(newItem);
@@ -102,6 +117,7 @@ export function App() {
           selectedItem={selectedItem}
           updateItemScore={updateItemScore}
           key={selectedItem.id}
+          scores={scores}
         />
         <ManualStepper id={selectedItem.id} stepUp={stepUp} />
       </Container>

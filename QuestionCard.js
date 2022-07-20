@@ -13,6 +13,7 @@ export default function QuestionCard({
   selectedItem,
   setSelectedItem,
   updateItemScore,
+  scores,
 }) {
   return (
     <Card
@@ -27,16 +28,18 @@ export default function QuestionCard({
       <CardContent>
         <RadioButtonsGroup
           selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
           updateItemScore={updateItemScore}
+          scores={scores}
         />
       </CardContent>
     </Card>
   );
 }
 
-function RadioButtonsGroup(props) {
-  const { selectedItem, updateItemScore } = props;
+function RadioButtonsGroup({ selectedItem, updateItemScore, scores }) {
+  let score = scores.find((s) => s.id === selectedItem.id);
+  if (score) console.log(`the score is set to: ${score.value}`);
+  let scoreCheck = score ? score.value : null;
   return (
     <>
       {selectedItem.choices ? (
@@ -61,7 +64,9 @@ function RadioButtonsGroup(props) {
                   control={
                     <Radio
                       size="small"
-                      checked={choice.score == selectedItem.score}
+                      //checked={choice.score == selectedItem.score}
+                      //checked={choice.score == score.value}
+                      checked={choice.score == scoreCheck}
                     />
                   }
                   label={
