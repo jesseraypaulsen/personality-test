@@ -11,7 +11,6 @@ import Skeleton from "@mui/material/Skeleton";
 
 export default function QuestionCard({
   selectedItem,
-  setSelectedItem,
   updateItemScore,
   scores,
 }) {

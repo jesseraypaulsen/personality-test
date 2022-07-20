@@ -1,4 +1,4 @@
-const { getItems } = require("./b5");
+//const { getItems } = require("./b5");
 const calculateScore = require("@alheimsins/bigfive-calculate-score");
 const getResult = require("@alheimsins/b5-result-text");
 import { useState, useEffect } from "react";
@@ -12,35 +12,14 @@ import ManualStepper from "./ManualStepper";
 // selectedItem should be a regular variable, not state.
 // index should be computed on each render, and then used to get selectedItem.
 
-const editText = (text) => {
-  let firstChar = text.charAt(0);
-  let lowerFirstChar = firstChar.toLowerCase();
-  let decapText = text.slice(1);
-  return "I " + lowerFirstChar + decapText + ".";
-};
-// arg true/false for shuffling the items
-const items = getItems(true).map((item, n) => {
-  item.score = null;
-  item.text = editText(item.text);
-  return item;
-});
-
-export function App() {
-  const [inventory, setInventory] = useState([]);
+export function App({ inventory }) {
   const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
+  const [autoStep, setAutoStep] = useState(true);
   const [selectedItem, setSelectedItem] = useState({
     text: "",
     choices: null,
   });
-  const [autoStep, setAutoStep] = useState(true);
-
-  useEffect(() => {
-    (() => {
-      setInventory(items);
-      //setSelectedItem(inventory[0]);
-    })();
-  }, []);
 
   useEffect(() => {
     console.log(selectedItem);
@@ -73,19 +52,10 @@ export function App() {
 
   const updateItemScore = (id, nextIndex, score) => {
     let newScore = parseInt(score);
-    let freshInventory = inventory.map((item) => {
-      if (item.id === id) {
-        let newItem = { ...item, score: newScore };
-        const newScores = uniqByKeepLast([...scores, { id, value: newScore }]);
-        setScores(newScores);
-        //update selectedItem so that the radio button will be visibly selected before
-        //stepper is invoked.
-        setSelectedItem(newItem);
-        return newItem;
-      }
-      return item;
-    });
-    setInventory(freshInventory);
+
+    const newScores = uniqByKeepLast([...scores, { id, value: newScore }]);
+    setScores(newScores);
+
     if (autoStep) {
       stepper(nextIndex);
     }

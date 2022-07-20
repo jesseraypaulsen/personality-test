@@ -1,7 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
-const { getItems } = require("./b5");
+//const { getItems } = require("./b5");
+import { inventory } from "./prepareData";
 
 const container = document.getElementById("app");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
-root.render(<App tab="home" />);
+root.render(<App inventory={inventory} />);
