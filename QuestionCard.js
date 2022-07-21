@@ -20,7 +20,7 @@ export default function QuestionCard({
         // backgroundColor: "primary.dark",
         mx: "auto",
       }}
-      data-itemid={selectedItem.id}
+      //data-itemid={selectedItem.id}
     >
       {/* mx is margin-left and margin-right; see https://mui.com/system/the-sx-prop/#spacing */}
       <CardHeader title={selectedItem.text} titleTypographyProps={{}} />

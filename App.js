@@ -26,6 +26,11 @@ export function App({ inventory, calculateScore, getResult }) {
     console.log(`scores: ${JSON.stringify(scores)}`);
   }, [scores]);
 
+  //function that finds out if score exists or not, using id
+  const isScored = (id) => {
+    return scores.find((score) => score.id === id) ? true : false;
+  };
+
   const stepUp = (id) => {
     let currIndex = inventory.findIndex((item) => item.id === id);
     let nextItem = inventory[currIndex + 1];
@@ -67,6 +72,7 @@ export function App({ inventory, calculateScore, getResult }) {
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
         setAutoStep={setAutoStep}
+        isScored={isScored}
       />
       <Container
         maxWidth="sm"

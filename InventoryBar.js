@@ -14,6 +14,7 @@ export default function BasicList({
   selectedItem,
   setSelectedItem,
   setAutoStep,
+  isScored,
 }) {
   const closeDrawer = () => {
     setOpen(false);
@@ -41,7 +42,7 @@ export default function BasicList({
                     onClick={(event) => handleListItemClick(event, item)}
                     selected={selectedItem.id === item.id}
                   >
-                    {item.score ? (
+                    {isScored(item.id) ? (
                       <>
                         <ListItemText>
                           <Box color="text.secondary" display="inline">
