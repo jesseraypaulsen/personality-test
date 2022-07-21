@@ -31,10 +31,16 @@ export function App({ inventory, calculateScore, getResult }) {
     return scores.find((score) => score.id === id) ? true : false;
   };
 
-  const stepUp = (id) => {
+  const nextStep = (id) => {
     let currIndex = inventory.findIndex((item) => item.id === id);
     let nextItem = inventory[currIndex + 1];
-    setSelectedItem(nextItem);
+    if (currIndex < 120) setSelectedItem(nextItem);
+  };
+
+  const backStep = (id) => {
+    let currIndex = inventory.findIndex((item) => item.id === id);
+    let prevItem = inventory[currIndex - 1];
+    if (currIndex > 0) setSelectedItem(prevItem);
   };
 
   const toggleAutoStep = () => {
@@ -53,7 +59,7 @@ export function App({ inventory, calculateScore, getResult }) {
 
     if (autoStep) {
       setTimeout(() => {
-        stepUp(id);
+        nextStep(id);
       }, 1000);
     }
   };
@@ -87,7 +93,10 @@ export function App({ inventory, calculateScore, getResult }) {
           key={selectedItem.id}
           scores={scores}
         />
-        <ManualStepper id={selectedItem.id} stepUp={stepUp} />
+        <ManualStepper
+          nextStep={() => nextStep(selectedItem.id)}
+          backStep={() => backStep(selectedItem.id)}
+        />
       </Container>
     </>
   );

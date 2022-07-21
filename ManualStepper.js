@@ -3,14 +3,14 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-export default function ManualStepper({ id, stepUp }) {
+export default function ManualStepper({ nextStep, backStep }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-      <Button>
+      <Button onClick={backStep}>
         <KeyboardArrowLeft fontSize="large" />
         Back
       </Button>
-      <Button onClick={() => stepUp(id)}>
+      <Button onClick={nextStep}>
         Next
         <KeyboardArrowRight fontSize="large" />
       </Button>
