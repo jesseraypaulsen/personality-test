@@ -1,6 +1,3 @@
-//const { getItems } = require("./b5");
-const calculateScore = require("@alheimsins/bigfive-calculate-score");
-const getResult = require("@alheimsins/b5-result-text");
 import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
@@ -12,7 +9,7 @@ import ManualStepper from "./ManualStepper";
 // selectedItem should be a regular variable, not state.
 // index should be computed on each render, and then used to get selectedItem.
 
-export function App({ inventory }) {
+export function App({ inventory, calculateScore, getResult }) {
   const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
@@ -29,13 +26,6 @@ export function App({ inventory }) {
     console.log(`scores: ${JSON.stringify(scores)}`);
   }, [scores]);
 
-  const stepper = (nextIndex) => {
-    const nextItem = inventory[nextIndex];
-    setTimeout(() => {
-      setSelectedItem(nextItem);
-    }, 1000);
-  };
-
   const stepUp = (id) => {
     let currIndex = inventory.findIndex((item) => item.id === id);
     let nextItem = inventory[currIndex + 1];
@@ -50,14 +40,16 @@ export function App({ inventory }) {
     return [...new Map(data.map((x) => [x.id, x])).values()];
   };
 
-  const updateItemScore = (id, nextIndex, score) => {
+  const updateItemScore = (id, score) => {
     let newScore = parseInt(score);
 
     const newScores = uniqByKeepLast([...scores, { id, value: newScore }]);
     setScores(newScores);
 
     if (autoStep) {
-      stepper(nextIndex);
+      setTimeout(() => {
+        stepUp(id);
+      }, 1000);
     }
   };
 

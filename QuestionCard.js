@@ -49,11 +49,7 @@ function RadioButtonsGroup({ selectedItem, updateItemScore, scores }) {
             value={selectedItem.choice}
             onChange={(e) => {
               console.log(e.target.value);
-              updateItemScore(
-                selectedItem.id,
-                selectedItem.num,
-                e.target.value
-              );
+              updateItemScore(selectedItem.id, e.target.value);
             }}
           >
             {selectedItem.choices.map((choice) => {

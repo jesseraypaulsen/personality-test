@@ -1,8 +1,15 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
-//const { getItems } = require("./b5");
 import { inventory } from "./prepareData";
+const calculateScore = require("@alheimsins/bigfive-calculate-score");
+const getResult = require("@alheimsins/b5-result-text");
 
 const container = document.getElementById("app");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
-root.render(<App inventory={inventory} />);
+root.render(
+  <App
+    inventory={inventory}
+    calculateScore={calculateScore}
+    getResult={getResult}
+  />
+);
