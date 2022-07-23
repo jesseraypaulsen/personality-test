@@ -7,25 +7,30 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import Switch from "@mui/material/Switch";
+import { Link } from "react-router-dom";
 
 export default function Header({ setOpen, autoStep, toggleAutoStep }) {
   return (
     <AppBar sx={{ position: "static" }}>
       <Toolbar sx={{ justifyContent: "space-evenly" }}>
         <Tooltip title="Inventory">
-          <ListIcon
-            fontSize="large"
-            onClick={() => setOpen(true)}
-            sx={{ cursor: "pointer" }}
-          />
+          <Link to="questionary">
+            <ListIcon
+              fontSize="large"
+              onClick={() => setOpen(true)}
+              sx={{ cursor: "pointer" }}
+            />
+          </Link>
         </Tooltip>
         <Typography variant="h3">O.C.E.A.N. Personality Test</Typography>
         <Tooltip title="Results">
-          <BarChartIcon
-            fontSize="large"
-            color={true ? "disabled" : "primary"}
-            sx={{ cursor: "pointer" }}
-          />
+          <Link to="results">
+            <BarChartIcon
+              fontSize="large"
+              color={true ? "disabled" : "primary"}
+              sx={{ cursor: "pointer" }}
+            />
+          </Link>
         </Tooltip>
         <Tooltip title="Auto-step">
           <Switch

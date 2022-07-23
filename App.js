@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import Questionary from "./Questionary";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
+import Results from "./Results";
 
-export function App({ inventory }) {
+export function App({ inventory, processResults }) {
   const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
@@ -76,6 +77,28 @@ export function App({ inventory }) {
               scores={scores}
               nextStep={nextStep}
               backStep={backStep}
+            />
+          }
+        />
+        <Route
+          path="questionary"
+          element={
+            <Questionary
+              selectedItem={selectedItem}
+              updateItemScore={updateItemScore}
+              scores={scores}
+              nextStep={nextStep}
+              backStep={backStep}
+            />
+          }
+        />
+        <Route
+          path="results"
+          element={
+            <Results
+              processResults={processResults}
+              inventory={inventory}
+              scores={scores}
             />
           }
         />

@@ -20,7 +20,7 @@ export const processResults = function (inventory, scores) {
     const item = inventory.find((item) => item.id === score.id);
     return {
       domain: item.domain,
-      facet: item.fact,
+      facet: item.facet,
       score: score.value,
     };
   });
