@@ -1,4 +1,4 @@
-import Outlet from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import InventoryBar from "./InventoryBar";
 
@@ -29,7 +29,7 @@ export default function Layout({
         setAutoStep={setAutoStep}
         isScored={isScored}
       />
-      {/* <Outlet /> */}
+      <Outlet />
     </>
   );
 }

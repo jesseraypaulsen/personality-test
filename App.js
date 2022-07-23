@@ -50,25 +50,36 @@ export function App({ inventory }) {
   };
 
   return (
-    <>
-      <Layout
-        inventory={inventory}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
-        isScored={isScored}
-        setOpen={setOpen}
-        autoStep={autoStep}
-        toggleAutoStep={toggleAutoStep}
-        open={open}
-        setAutoStep={setAutoStep}
-      />
-      <Questionary
-        selectedItem={selectedItem}
-        updateItemScore={updateItemScore}
-        scores={scores}
-        nextStep={nextStep}
-        backStep={backStep}
-      />
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Layout
+            inventory={inventory}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            isScored={isScored}
+            setOpen={setOpen}
+            autoStep={autoStep}
+            toggleAutoStep={toggleAutoStep}
+            open={open}
+            setAutoStep={setAutoStep}
+          />
+        }
+      >
+        <Route
+          index
+          element={
+            <Questionary
+              selectedItem={selectedItem}
+              updateItemScore={updateItemScore}
+              scores={scores}
+              nextStep={nextStep}
+              backStep={backStep}
+            />
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
