@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import InventoryBar from "./InventoryBar";
 import Container from "@mui/material/Container";
-import QuestionCard from "./QuestionCard";
 import Header from "./Header.js";
+import QuestionCard from "./QuestionCard";
 import ManualStepper from "./ManualStepper";
+import Questionary from "./Questionary";
 
 // inventory should be props not state. only put id and score in state.
 // selectedItem should be a regular variable, not state.
 // index should be computed on each render, and then used to get selectedItem.
 
-export function App({ inventory, calculateScore, getResult }) {
+export function App({ inventory }) {
   const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
@@ -80,24 +81,13 @@ export function App({ inventory, calculateScore, getResult }) {
         setAutoStep={setAutoStep}
         isScored={isScored}
       />
-      <Container
-        maxWidth="sm"
-        sx={{
-          //backgroundColor: "primary.light"
-          marginTop: "3em",
-        }}
-      >
-        <QuestionCard
-          selectedItem={selectedItem}
-          updateItemScore={updateItemScore}
-          key={selectedItem.id}
-          scores={scores}
-        />
-        <ManualStepper
-          nextStep={() => nextStep(selectedItem.id)}
-          backStep={() => backStep(selectedItem.id)}
-        />
-      </Container>
+      <Questionary
+        selectedItem={selectedItem}
+        updateItemScore={updateItemScore}
+        scores={scores}
+        nextStep={nextStep}
+        backStep={backStep}
+      />
     </>
   );
 }
