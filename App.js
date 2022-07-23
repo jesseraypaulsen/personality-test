@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
-import InventoryBar from "./InventoryBar";
-import Container from "@mui/material/Container";
-import Header from "./Header.js";
-import QuestionCard from "./QuestionCard";
-import ManualStepper from "./ManualStepper";
 import Questionary from "./Questionary";
-
-// inventory should be props not state. only put id and score in state.
-// selectedItem should be a regular variable, not state.
-// index should be computed on each render, and then used to get selectedItem.
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
 
 export function App({ inventory }) {
   const [scores, setScores] = useState([]);
@@ -19,15 +12,6 @@ export function App({ inventory }) {
     choices: null,
   });
 
-  useEffect(() => {
-    console.log(selectedItem);
-  }, [selectedItem]);
-
-  useEffect(() => {
-    console.log(`scores: ${JSON.stringify(scores)}`);
-  }, [scores]);
-
-  //function that finds out if score exists or not, using id
   const isScored = (id) => {
     return scores.find((score) => score.id === id) ? true : false;
   };
@@ -67,19 +51,16 @@ export function App({ inventory }) {
 
   return (
     <>
-      <Header
+      <Layout
+        inventory={inventory}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
+        isScored={isScored}
         setOpen={setOpen}
         autoStep={autoStep}
         toggleAutoStep={toggleAutoStep}
-      />
-      <InventoryBar
-        inventory={inventory}
         open={open}
-        setOpen={setOpen}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
         setAutoStep={setAutoStep}
-        isScored={isScored}
       />
       <Questionary
         selectedItem={selectedItem}
