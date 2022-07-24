@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Results from "./Results";
 
-export function App({ inventory, processResults }) {
+export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
@@ -50,6 +50,14 @@ export function App({ inventory, processResults }) {
     }
   };
 
+  const fill = () => {
+    const fakeScores = generateFakeScores(inventory);
+    setScores(fakeScores);
+  };
+  //generateFakeScores(inventory, (values) => setScores(values));
+  //this causes infinite renders, because the function executes every time the component
+  //is rendered, and it changes state causing a render.
+
   return (
     <Routes>
       <Route
@@ -65,6 +73,7 @@ export function App({ inventory, processResults }) {
             toggleAutoStep={toggleAutoStep}
             open={open}
             setAutoStep={setAutoStep}
+            fill={fill}
           />
         }
       >

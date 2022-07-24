@@ -1,46 +1,26 @@
+//http://testsonthenet.com/Factors-facets.htm (5 factors, 30 facets)
+//https://css-tricks.com/making-a-bar-chart-with-css-grid/
+//the 6 facets per facet should use shades of the facet color, like Material palette
+import { grid } from "@mui/system";
+import BarChart from "./BarChart";
 export default function Results({ processResults, inventory, scores }) {
   const results = processResults(inventory, scores);
-  console.log(JSON.stringify(results));
-  /* title
-     shortDescription
-     description
-     scoreText
-     count
-     score
-     facets: facet, title, text, score, count, scoreText
+  //const resultScores = results.map((result) => result.score);
+  /* 
+     {  domain
+        title
+        shortDescription
+        description
+        scoreText
+        score
+        count
+        score
+        facets: { facet, title, text, score, count, scoreText }
+     }
   */
   return (
-    <div
-      style={{
-        display: "flex",
-        border: "1px solid black",
-        justifyContent: "space-between",
-        maxWidth: "60em",
-        marginTop: "3em",
-        marginLeft: "auto",
-        marginRight: "auto",
-        padding: "2em",
-      }}
-    >
-      {results.map((result) => {
-        return (
-          <div key={result.title}>
-            <div>Domain: {result.domain}</div>
-            <div>
-              Score: {result.score} ({result.scoreText})
-            </div>
-            <div>Count: {result.count}</div>
-            <div>
-              Facets:{" "}
-              {result.facets.map((f) => (
-                <div>
-                  {f.title} - {f.score} ({f.scoreText})
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <BarChart results={results} />
+    </>
   );
 }

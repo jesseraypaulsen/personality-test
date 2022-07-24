@@ -27,3 +27,17 @@ export const processResults = function (inventory, scores) {
   const results = getResult({ scores: calculateScore(data), lang: "en" });
   return results;
 };
+
+export const generateFakeScores = function (inventory) {
+  return inventory.map((item) => ({
+    id: item.id,
+    value: randomNumber(1, 5),
+  }));
+};
+
+function randomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+//https://www.geeksforgeeks.org/how-to-generate-random-number-in-given-range-using-javascript/

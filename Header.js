@@ -1,3 +1,4 @@
+import DataArrayIcon from "@mui/icons-material/DataArray";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ListIcon from "@mui/icons-material/List";
 import InfoIcon from "@mui/icons-material/Info";
@@ -9,7 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 
-export default function Header({ setOpen, autoStep, toggleAutoStep }) {
+export default function Header({ setOpen, autoStep, toggleAutoStep, fill }) {
   return (
     <AppBar sx={{ position: "static" }}>
       <Toolbar sx={{ justifyContent: "space-evenly" }}>
@@ -48,6 +49,11 @@ export default function Header({ setOpen, autoStep, toggleAutoStep }) {
             <InfoIcon fontSize="large" sx={{ cursor: "pointer" }} />
           </a>
         </Tooltip>
+        <DataArrayIcon
+          fontSize="large"
+          sx={{ cursor: "pointer" }}
+          onClick={fill}
+        />
       </Toolbar>
     </AppBar>
   );
