@@ -2,7 +2,6 @@ import DataArrayIcon from "@mui/icons-material/DataArray";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ListIcon from "@mui/icons-material/List";
 import InfoIcon from "@mui/icons-material/Info";
-import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -10,7 +9,13 @@ import Tooltip from "@mui/material/Tooltip";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 
-export default function Header({ setOpen, autoStep, toggleAutoStep, fill }) {
+export default function Header({
+  setOpen,
+  autoStep,
+  toggleAutoStep,
+  fill,
+  len,
+}) {
   return (
     <AppBar sx={{ position: "static" }}>
       <Toolbar sx={{ justifyContent: "space-evenly" }}>
@@ -23,12 +28,12 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, fill }) {
             />
           </Link>
         </Tooltip>
-        <Typography variant="h3">O.C.E.A.N. Personality Test</Typography>
+        <Typography variant="h3">OCEAN Personality Test</Typography>
         <Tooltip title="Results">
           <Link to="results">
             <BarChartIcon
               fontSize="large"
-              color={true ? "disabled" : "primary"}
+              color={len < 120 ? "disabled" : ""}
               sx={{ cursor: "pointer" }}
             />
           </Link>
@@ -49,11 +54,13 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, fill }) {
             <InfoIcon fontSize="large" sx={{ cursor: "pointer" }} />
           </a>
         </Tooltip>
-        <DataArrayIcon
-          fontSize="large"
-          sx={{ cursor: "pointer" }}
-          onClick={fill}
-        />
+        <Tooltip title="Generate random data">
+          <DataArrayIcon
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+            onClick={fill}
+          />
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );

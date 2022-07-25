@@ -1,8 +1,8 @@
 .chart {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(100, 1fr);
-  grid-column-gap: 5px;
+  grid-template-rows: repeat(120, 1fr);
+  grid-column-gap: 3em;
   height: 20em;
   width: 40vw;
   margin-left: auto;
@@ -12,8 +12,8 @@
 
 .chart [class*="bar"] {
   grid-row-start: 1;
-  grid-row-end: 101;
-  border-radius: 5px 5px 0 0;
+  grid-row-end: 121;
+  /* border-radius: 5px 5px 0 0; */
   background-color: #ff4136;
 }
 

@@ -13,6 +13,7 @@ export default function Layout({
   toggleAutoStep,
   setAutoStep,
   fill,
+  len,
 }) {
   return (
     <>
@@ -21,6 +22,7 @@ export default function Layout({
         autoStep={autoStep}
         toggleAutoStep={toggleAutoStep}
         fill={fill}
+        len={len}
       />
       <InventoryBar
         inventory={inventory}

@@ -57,7 +57,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
   //generateFakeScores(inventory, (values) => setScores(values));
   //this causes infinite renders, because the function executes every time the component
   //is rendered, and it changes state causing a render.
-
+  console.log(`scores.length is ${scores.length}`);
   return (
     <Routes>
       <Route
@@ -74,6 +74,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
             open={open}
             setAutoStep={setAutoStep}
             fill={fill}
+            len={scores.length}
           />
         }
       >
