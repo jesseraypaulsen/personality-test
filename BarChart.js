@@ -33,6 +33,11 @@ export default function BarChart({ results }) {
             );
           })
         : null}
+      {results[0]
+        ? results.map((result, i) => {
+            return <div className={`label-${i + 1}`}>{result.domain}</div>;
+          })
+        : null}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 .chart {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(120, 1fr);
+  grid-template-rows: repeat(120, 1fr) 10fr;
   grid-column-gap: 3em;
   height: 20em;
   width: 40vw;
@@ -15,5 +15,11 @@
   grid-row-end: 121;
   /* border-radius: 5px 5px 0 0; */
   background-color: #ff4136;
+}
+
+.chart [class*="label"] {
+  grid-row-start: 121;
+  grid-row-end: 122;
+  justify-self: center;
 }
 
