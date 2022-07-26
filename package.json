@@ -1,6 +1,9 @@
 {
+  "source": "index.html",
   "scripts": {
-    "clean": "rm -rf dist && rm -rf .parcel-cache"
+    "clean": "rm -rf dist && rm -rf .parcel-cache",
+    "start": "parcel",
+    "build": "parcel build"
   },
   "dependencies": {
     "@alheimsins/b5-result-text": "^5.0.5",
@@ -16,7 +19,9 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.3.2",
+    "parcel": "^2.6.2",
     "postcss": "^8.4.14",
-    "postcss-modules": "^4.3.1"
+    "postcss-modules": "^4.3.1",
+    "process": "^0.11.10"
   }
 }
