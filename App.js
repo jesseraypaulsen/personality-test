@@ -33,7 +33,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
     setAutoStep((prev) => !prev);
   };
 
-  uniqByKeepLast = (data) => {
+  const uniqByKeepLast = (data) => {
     return [...new Map(data.map((x) => [x.id, x])).values()];
   };
 
