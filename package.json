@@ -2,7 +2,7 @@
   "source": "index.html",
   "scripts": {
     "clean": "rm -rf dist && rm -rf .parcel-cache",
-    "start": "parcel",
+    "start": "node server.js",
     "build": "parcel build"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
+    "express": "^4.18.1",
     "knuth-shuffle": "^1.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
