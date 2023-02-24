@@ -73,7 +73,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
             toggleAutoStep={toggleAutoStep}
             open={open}
             setAutoStep={setAutoStep}
-            fill={fill}
             len={scores.length}
           />
         }
@@ -109,6 +108,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
               processResults={processResults}
               inventory={inventory}
               scores={scores}
+              fill={fill}
             />
           }
         />
