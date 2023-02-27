@@ -16,10 +16,8 @@ export default function Results({
   setCurrentUser,
 }) {
   const results = getResults(scores);
-  const userKeys = ["Cornelius", "Wendy"];
+
   //TODO: get hard-coded data and localStorage separately, aggregate them into the same component state.
-  //what is the form the dummy data should be in?
-  const dummyData = [{}];
 
   for (let i = 0; i < results.length; i++) {
     console.log(
@@ -40,11 +38,7 @@ export default function Results({
 
   var user = JSON.parse(localStorage.getItem('user'));
 
-  And to delete all entries:
-
-  localStorage.clear();
   */
-  const restoreLocalStorage = () => console.log(localStorage);
   //const resultScores = results.map((result) => result.score);
   /*
      {  domain
@@ -62,22 +56,18 @@ export default function Results({
      Each has 24 questions, and each question has a max score of 5.
   */
 
-  //TODO: change 'generate data' button with fill function, into a form for username with a checkmark for fill. ie, you can generate data when you create
-  //a new user.
   return (
     <div
       className="dashboard"
       style={{
         display: "flex",
         flexDirection: "column",
+        gap: "3em",
       }}
     >
-      <h1 style={{ display: "flex", alignItems: "center" }}>
-        <DataArrayIcon fontSize="large" />
-        {currentUser}
-      </h1>
+      <h1>{currentUser}</h1>
       <span
-        onClick={restoreLocalStorage}
+        onClick={eraser}
         style={{
           backgroundColor: "coral",
           alignSelf: "flex-start",
@@ -89,9 +79,11 @@ export default function Results({
           margin: "1em",
         }}
       >
-        <DataArrayIcon fontSize="large" /> Restore from localStorage
+        <DataArrayIcon fontSize="large" /> Erase this User{" "}
+        {/* If the select menu changes currentUser, then this button makes sense.
+        But now the problem is that you have to decide what user to display after you click it. */}
       </span>
-      <UserSelectionMenu userKeys={userKeys} />
+      <UserSelectionMenu />
       <button onClick={clearStorage} style={{ alignSelf: "center" }}>
         Clear Storage
       </button>
@@ -150,13 +142,32 @@ export default function Results({
   );
 }
 
-function UserSelectionMenu({ userKeys }) {
+function eraser(e) {
+  const item = document.querySelector("select").value;
+  localStorage.removeItem(item);
+  console.log(localStorage);
+}
+function UserSelectionMenu() {
   return (
-    <select style={{ alignSelf: "center" }}>
-      {userKeys.map((key) => (
-        <option>{key}</option>
-      ))}
-      ;
-    </select>
+    <div style={{ display: "flex", alignSelf: "center", gap: "1em" }}>
+      <select>
+        {getUserKeys().map((key) => (
+          <option>{key}</option>
+        ))}
+        ;
+      </select>
+    </div>
   );
+
+  /*return (
+    <div
+      style={{ display: "flex", flexDirection: "column", alignSelf: "center" }}
+    >
+      {getUserKeys().map((key) => (
+        <div>
+          {key} <button>Lift</button> <button>Destroy</button>
+        </div>
+      ))}
+    </div>
+  );*/
 }
