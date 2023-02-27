@@ -1,14 +1,25 @@
 ## Todos
 
-1. remove items from the top bar
-2. create a new menu icon.
-3. topbar will have two menu icons on the left, title on the right.
-4. insert the removed items from #1, into a new menu that will be accessed by an icon on the left of the topbar, along with the inventory icon. The four items to be moved are: Results, Auto-Step, Info, and Generate random data. The new menu will be similar to the Inventory Menu, but wayyy shorter.
-5. The goal here is overall changes toward mobile-friendly. So the new menu will follow the template of the inventory menu. On desktop it fills the left third of the screen, but on mobile it should take up the whole screen.
-6. Add stuff to the Results Dashboard -- it is anemic right now. Maybe create a feature on the dashboard for saving your results in localStorage, and then switching them out in UI, but retaining the ability to switch back to your saved results. Currently the "generate data" button destroys your results. We could move the "generate data" button onto the dashboard itself instead of into the new menu. So the new menu would only have 3 options, one of which is the dashboard.
+**_The overall goal is mobile-friendly._**
+
+- Results Dashboard
+  - change 'generate data' button with fill function, into a form for username with a checkmark for fill. ie, you can generate data when you create a new user.
+  - media query for mobile wrt BarChart
+  - modal intro with prompt for profile name, but if the user is returning from a prior session they have a different version of the modal that says "welcome so-and-so -- if this is the wrong profile change it in the dashboard." https://mui.com/material-ui/react-dialog/#form-dialogs
+  - accordion on the Dashboard, for hiding/showing all users with buttons for switching to, or deleting.
+  - dashboard -> <h1>{username}</h1> and then the bar chart. But under the title there's an arrow or something that you click to expand and see all users.
+
+---
+
+- two possibilities considered: 1) the ability to switch between localStorage and random dataset, 2) username keys mapped to arrays of answer objects, with some dummy usernames you can switch to, and one of the usernames is the current username in a selection menu on Results Dashboard above its corresponding BarChart. What is the difference between these two options? Which is more reasonable? Clearly the latter, because the former is semantically baffling.
+- <s>Maybe -> change "generate data" button to a menu of profiles, with at least one dummy dataset.</s>
+- <s>dashboard > saving your results in localStorage. then if you click "generate data" button, you can switch back to your saved results afterward.</s>
+- Someday/Maybe: change top bar to a small partial sidebar that expands/collapses at the press of a button.
 
 ---
 
 ## Done
 
+- Move "generate data" button onto the dashboard instead of the menu. <span style="color:green">✔</span> (Results Dashboard)
+- remove items from the top bar <span style="color:green">✔</span> (removed title; moved one of the icons to Results Dashboard)
 - deploy demo on cloud <span style="color:green">✔</span>

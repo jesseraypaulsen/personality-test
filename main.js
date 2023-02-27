@@ -4,7 +4,7 @@ import { App } from "./App";
 import { inventory, processResults, generateFakeScores } from "./prepareData";
 
 const container = document.getElementById("app");
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <App

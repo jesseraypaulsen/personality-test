@@ -6,12 +6,32 @@ import Results from "./Results";
 
 export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
+  const [currentUser, setCurrentUser] = useState("Lorenzo");
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
   const [selectedItem, setSelectedItem] = useState({
     text: "",
     choices: null,
   });
+
+  /* 
+  TODO: if localStorage is empty, display modal with prompt for a username, along with message.
+  if localStorage is not empty, display modal that shows current username and mentions the Dashboard to switch users.
+  the dashboard's BarChart should render what the select menu tells it to. The selection menu must be controlled.
+  */
+
+  useEffect(() => {
+    console.log("localStorage: ", localStorage);
+    // update localStorage each time setScore is called
+    if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
+  }, [scores]);
+
+  const clearStorage = () => {
+    localStorage.clear();
+    console.log("localStorage: ", localStorage);
+  };
+
+  const getResults = (scores) => processResults(inventory, scores);
 
   const isScored = (id) => {
     return scores.find((score) => score.id === id) ? true : false;
@@ -105,10 +125,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
           path="results"
           element={
             <Results
-              processResults={processResults}
-              inventory={inventory}
               scores={scores}
+              getResults={getResults}
               fill={fill}
+              clearStorage={clearStorage}
             />
           }
         />

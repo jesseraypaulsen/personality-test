@@ -17,6 +17,7 @@ article (above) instead of Sass.
 */
 
 export default function BarChart({ results }) {
+  console.log("BarChart -> results: ", results);
   const colors = ["yellow", "orange", "blue", "green", "red"];
   return (
     <div class="chart">

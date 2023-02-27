@@ -30,7 +30,6 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
             />
           </Link>
         </Tooltip>
-        {/* <Typography variant="h3">OCEAN Personality Test</Typography> */}
         <Tooltip title="Auto-step">
           <Switch
             checked={autoStep}
