@@ -6,7 +6,15 @@ import DataArrayIcon from "@mui/icons-material/DataArray";
 import { getUserKeys } from "./data-access.js";
 import { useState } from "react";
 
-export default function Results({ scores, getResults, fill, clearStorage }) {
+export default function Results({
+  scores,
+  getResults,
+  fill,
+  empty,
+  clearStorage,
+  currentUser,
+  setCurrentUser,
+}) {
   const results = getResults(scores);
   const userKeys = ["Cornelius", "Wendy"];
   //TODO: get hard-coded data and localStorage separately, aggregate them into the same component state.
@@ -20,6 +28,7 @@ export default function Results({ scores, getResults, fill, clearStorage }) {
   }
 
   const [generate, setGenerate] = useState(false);
+  const [newUsername, setNewUsername] = useState(null);
 
   /*
 
@@ -63,6 +72,10 @@ export default function Results({ scores, getResults, fill, clearStorage }) {
         flexDirection: "column",
       }}
     >
+      <h1 style={{ display: "flex", alignItems: "center" }}>
+        <DataArrayIcon fontSize="large" />
+        {currentUser}
+      </h1>
       <span
         onClick={restoreLocalStorage}
         style={{
@@ -82,22 +95,55 @@ export default function Results({ scores, getResults, fill, clearStorage }) {
       <button onClick={clearStorage} style={{ alignSelf: "center" }}>
         Clear Storage
       </button>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input type="text"></input>
-        <input
-          type="checkbox"
-          value="generate"
-          name="generator"
-          onChange={(e) => setGenerate(e.target.checked)}
-        ></input>
-        <label for="generator">Generate Data</label>
-        <button
-          onClick={() => {
-            if (generate) fill();
-          }}
-        >
-          OK
-        </button>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        style={{ alignSelf: "center" }}
+      >
+        <fieldset>
+          <legend>Create a new user</legend>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1em",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="type username here..."
+              onChange={(e) => setNewUsername(e.target.value)}
+            ></input>
+            <button
+              onClick={() => {
+                const userKeys = getUserKeys();
+                const testUsername = userKeys.find(
+                  (key) => key === newUsername
+                );
+                if (testUsername) {
+                  alert("that name is already used");
+                  return;
+                }
+                if (newUsername) {
+                  setCurrentUser(newUsername);
+                  if (generate) fill();
+                  else empty();
+                }
+              }}
+            >
+              OK
+            </button>
+            <div style={{ display: "flex" }}>
+              <input
+                type="checkbox"
+                value="generate"
+                name="generator"
+                onChange={(e) => setGenerate(e.target.checked)}
+              ></input>
+              <label for="generator">Generate Data</label>
+            </div>
+          </div>
+        </fieldset>
       </form>
       <BarChart results={results} />
     </div>

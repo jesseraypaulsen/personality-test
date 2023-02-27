@@ -29,12 +29,6 @@ Because localStorage stores key-value pairs, to store a javascript object we nee
      Each has 24 questions, and each question has a max score of 5.
   */
 
-//https://stackoverflow.com/a/8419509
 export const getUserKeys = () => {
-  let keys = [];
-  for (let key in localStorage) {
-    console.log(key);
-    keys = keys.concat(key);
-  }
-  return keys;
+  return Object.keys(localStorage);
 };

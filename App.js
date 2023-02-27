@@ -21,7 +21,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
   */
 
   useEffect(() => {
-    console.log("localStorage: ", localStorage);
+    setTimeout(() => console.log("localStorage: ", localStorage), 300);
     // update localStorage each time setScore is called
     if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
   }, [scores]);
@@ -30,6 +30,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
     localStorage.clear();
     console.log("localStorage: ", localStorage);
   };
+
+  //TODO
+  //function that sets newUsername in Results.js to currentUser here.
+  //but that alone is not enough.
 
   const getResults = (scores) => processResults(inventory, scores);
 
@@ -73,6 +77,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
   const fill = () => {
     const fakeScores = generateFakeScores(inventory);
     setScores(fakeScores);
+  };
+
+  const empty = () => {
+    setScores([]);
   };
   //generateFakeScores(inventory, (values) => setScores(values));
   //this causes infinite renders, because the function executes every time the component
@@ -128,7 +136,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
               scores={scores}
               getResults={getResults}
               fill={fill}
+              empty={empty}
               clearStorage={clearStorage}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
             />
           }
         />
