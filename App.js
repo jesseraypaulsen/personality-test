@@ -7,7 +7,7 @@ import Results from "./Results";
 export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
   const [currentUser, setCurrentUser] = useState();
-  const [storedUsers, setStoredUsers] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
   const [selectedItem, setSelectedItem] = useState({
@@ -16,16 +16,28 @@ export function App({ inventory, processResults, generateFakeScores }) {
   });
 
   useEffect(() => {
-    setStoredUsers(Object.keys(localStorage));
+    const keys = Object.keys(localStorage);
+    const names = keys.filter((key) => key !== "currentUser");
+    const currentUserIndex = keys.findIndex((key) => key === "currentUser");
+    if (currentUserIndex >= 0) {
+      const _currentUser = localStorage.getItem("currentUser");
+      console.log("_currentUser: ", _currentUser);
+      //_currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      setCurrentUser(_currentUser);
+    }
+    setUserList(names);
   }, []);
+
   useEffect(() => {
-    console.log("storedUsers: ", storedUsers);
-  }, [storedUsers]);
+    console.log("userList: ", userList);
+  }, [userList]);
+
   useEffect(() => {
+    localStorage.setItem("currentUser", currentUser);
     console.log("currentUser: ", currentUser);
   }, [currentUser]);
+
   useEffect(() => {
-    setTimeout(() => console.log("localStorage: ", localStorage), 300);
     // update localStorage each time setScore is called
     if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
   }, [scores]);
@@ -142,6 +154,8 @@ export function App({ inventory, processResults, generateFakeScores }) {
               clearStorage={clearStorage}
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+              userList={userList}
+              setUserList={setUserList}
             />
           }
         />

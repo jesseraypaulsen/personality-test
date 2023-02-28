@@ -3,7 +3,6 @@
 //the 6 facets per facet should use shades of the facet color, like Material palette
 import BarChart from "./BarChart";
 import DataArrayIcon from "@mui/icons-material/DataArray";
-import { getUserKeys } from "./data-access.js";
 import { useState } from "react";
 
 export default function Results({
@@ -14,6 +13,8 @@ export default function Results({
   clearStorage,
   currentUser,
   setCurrentUser,
+  userList,
+  setUserList,
 }) {
   const results = getResults(scores);
 
@@ -66,13 +67,19 @@ export default function Results({
       }}
     >
       <h1>{currentUser}</h1>
-      <DataButton />
       <UserSelectionMenu
         setCurrentUser={setCurrentUser}
         currentUser={currentUser}
+        userList={userList}
       />
       <button onClick={clearStorage} style={{ alignSelf: "center" }}>
         Clear Storage
+      </button>
+      <button
+        onClick={() => console.log(localStorage)}
+        style={{ alignSelf: "center" }}
+      >
+        Show Storage
       </button>
       <NewUserForm
         setNewUsername={setNewUsername}
@@ -82,46 +89,45 @@ export default function Results({
         generate={generate}
         fill={fill}
         empty={empty}
+        userList={userList}
+        setUserList={setUserList}
       />
       <BarChart results={results} />
     </div>
   );
 }
 
-function UserSelectionMenu({ setCurrentUser, currentUser }) {
-  /*return (
-    <div style={{ display: "flex", alignSelf: "center", gap: "1em" }}>
-      <select>
-        {getUserKeys().map((key) => (
-          <option>{key}</option>
-        ))}
-        ;
-      </select>
-    </div>
-  );*/
-
+function UserSelectionMenu({ setCurrentUser, currentUser, userList }) {
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignSelf: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignSelf: "center",
+        gap: "1em",
+      }}
     >
-      {getUserKeys().map((key) => (
-        <div>
+      <h3>All Users</h3>
+      {userList.map((key) => (
+        <div
+          style={{ display: "flex", gap: "1em", border: ".5px green dotted" }}
+        >
           {key}
-          {key === currentUser ? (
-            <i>current</i>
-          ) : (
-            <>
-              <button onClick={(e) => setCurrentUser(key)}>Load</button>{" "}
-              <button
-                onClick={(e) => {
-                  localStorage.removeItem(key);
-                  console.log(`erased ${key}`, localStorage);
-                }}
-              >
-                Erase
-              </button>
-            </>
-          )}
+          <button
+            disabled={key === currentUser}
+            onClick={(e) => setCurrentUser(key)}
+          >
+            Load
+          </button>{" "}
+          <button
+            disabled={key === currentUser}
+            onClick={(e) => {
+              localStorage.removeItem(key);
+              console.log(`erased ${key}`, localStorage);
+            }}
+          >
+            Erase
+          </button>
         </div>
       ))}
     </div>
@@ -136,6 +142,8 @@ function NewUserForm({
   generate,
   fill,
   empty,
+  userList,
+  setUserList,
 }) {
   return (
     <form onSubmit={(e) => e.preventDefault()} style={{ alignSelf: "center" }}>
@@ -156,14 +164,17 @@ function NewUserForm({
           ></input>
           <button
             onClick={() => {
-              const userKeys = getUserKeys();
-              const testUsername = userKeys.find((key) => key === newUsername);
+              //const userKeys = getUserKeys();
+              //const testUsername = userKeys.find((key) => key === newUsername);
+              const testUsername = userList.find((key) => key === newUsername);
+
               if (testUsername) {
                 alert("that name is already used");
                 return;
               }
               if (newUsername) {
                 setCurrentUser(newUsername);
+                setUserList((prev) => [...prev, newUsername]);
                 if (generate)
                   fill(); // when score changes, the scores are inserted into localStorage with currentUser as the key (see App.js)
                 else empty();
@@ -187,7 +198,8 @@ function NewUserForm({
   );
 }
 
-function DataButton() {
+//Good looking button. Usage: <DataButton label="Click Me">
+function DataButton({ label }) {
   return (
     <span
       onClick={eraser}
@@ -202,7 +214,7 @@ function DataButton() {
         margin: "1em",
       }}
     >
-      <DataArrayIcon fontSize="large" /> Erase this User{" "}
+      <DataArrayIcon fontSize="large" /> {label}{" "}
       {/* If the select menu changes currentUser, then this button makes sense.
         But now the problem is that you have to decide what user to display after you click it. */}
     </span>
