@@ -81,6 +81,12 @@ export default function Results({
       >
         Show Storage
       </button>
+      <button
+        onClick={() => console.log(scores)}
+        style={{ alignSelf: "center" }}
+      >
+        Show Scores
+      </button>
       <NewUserForm
         setNewUsername={setNewUsername}
         newUsername={newUsername}

@@ -21,23 +21,23 @@ export function App({ inventory, processResults, generateFakeScores }) {
     const currentUserIndex = keys.findIndex((key) => key === "currentUser");
     if (currentUserIndex >= 0) {
       const _currentUser = localStorage.getItem("currentUser");
-      console.log("_currentUser: ", _currentUser);
-      //_currentUser = JSON.parse(localStorage.getItem("currentUser"));
       setCurrentUser(_currentUser);
     }
     setUserList(names);
   }, []);
 
   useEffect(() => {
-    console.log("userList: ", userList);
+    console.log("userList changed: ", userList);
   }, [userList]);
 
   useEffect(() => {
     localStorage.setItem("currentUser", currentUser);
-    console.log("currentUser: ", currentUser);
+    const _scores = JSON.parse(localStorage.getItem(currentUser));
+    if (_scores) setScores(_scores);
   }, [currentUser]);
 
   useEffect(() => {
+    console.log("scores changed: ", scores);
     // update localStorage each time setScore is called
     if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
   }, [scores]);
@@ -46,10 +46,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
     localStorage.clear();
     console.log("localStorage: ", localStorage);
   };
-
-  //TODO
-  //function that sets newUsername in Results.js to currentUser here.
-  //but that alone is not enough.
 
   const getResults = (scores) => processResults(inventory, scores);
 
