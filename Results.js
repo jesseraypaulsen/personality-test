@@ -71,6 +71,7 @@ export default function Results({
         setCurrentUser={setCurrentUser}
         currentUser={currentUser}
         userList={userList}
+        setUserList={setUserList}
       />
       <button onClick={clearStorage} style={{ alignSelf: "center" }}>
         Clear Storage
@@ -103,7 +104,12 @@ export default function Results({
   );
 }
 
-function UserSelectionMenu({ setCurrentUser, currentUser, userList }) {
+function UserSelectionMenu({
+  setCurrentUser,
+  currentUser,
+  userList,
+  setUserList,
+}) {
   return (
     <div
       style={{
@@ -129,6 +135,7 @@ function UserSelectionMenu({ setCurrentUser, currentUser, userList }) {
             disabled={key === currentUser}
             onClick={(e) => {
               localStorage.removeItem(key);
+              setUserList((prev) => [...prev.filter((user) => user !== key)]);
               console.log(`erased ${key}`, localStorage);
             }}
           >
@@ -170,8 +177,6 @@ function NewUserForm({
           ></input>
           <button
             onClick={() => {
-              //const userKeys = getUserKeys();
-              //const testUsername = userKeys.find((key) => key === newUsername);
               const testUsername = userList.find((key) => key === newUsername);
 
               if (testUsername) {
