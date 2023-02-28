@@ -3,6 +3,7 @@ import Questionary from "./Questionary";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Results from "./Results";
+import FormDialog from "./FormDialog";
 
 export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
@@ -98,7 +99,13 @@ export function App({ inventory, processResults, generateFakeScores }) {
   return (
     <>
       {modal ? (
-        <ModalPrompt setModal={setModal} />
+        // <ModalPrompt setModal={setModal} />
+        <FormDialog
+          modal={modal}
+          setModal={setModal}
+          setCurrentUser={setCurrentUser}
+          setUserList={setUserList}
+        />
       ) : (
         <Routes>
           <Route
