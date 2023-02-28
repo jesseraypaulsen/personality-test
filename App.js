@@ -8,6 +8,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userList, setUserList] = useState([]);
+  const [modal, setModal] = useState(false);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
   const [selectedItem, setSelectedItem] = useState({
@@ -16,14 +17,18 @@ export function App({ inventory, processResults, generateFakeScores }) {
   });
 
   useEffect(() => {
-    const keys = Object.keys(localStorage);
-    const names = keys.filter((key) => key !== "currentUser");
-    const currentUserIndex = keys.findIndex((key) => key === "currentUser");
-    if (currentUserIndex >= 0) {
-      const _currentUser = localStorage.getItem("currentUser");
-      setCurrentUser(_currentUser);
+    if (localStorage.length > 1) {
+      const keys = Object.keys(localStorage);
+      const names = keys.filter((key) => key !== "currentUser");
+      const currentUserIndex = keys.findIndex((key) => key === "currentUser");
+      if (currentUserIndex >= 0) {
+        const _currentUser = localStorage.getItem("currentUser");
+        setCurrentUser(_currentUser);
+      }
+      setUserList(names);
+    } else {
+      setModal(true);
     }
-    setUserList(names);
   }, []);
 
   useEffect(() => {
@@ -41,11 +46,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
     // update localStorage each time setScore is called
     if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
   }, [scores]);
-
-  const clearStorage = () => {
-    localStorage.clear();
-    console.log("localStorage: ", localStorage);
-  };
 
   const getResults = (scores) => processResults(inventory, scores);
 
@@ -95,67 +95,79 @@ export function App({ inventory, processResults, generateFakeScores }) {
     setScores([]);
   };
 
-  console.log(`scores.length is ${scores.length}`);
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Layout
-            inventory={inventory}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-            isScored={isScored}
-            setOpen={setOpen}
-            autoStep={autoStep}
-            toggleAutoStep={toggleAutoStep}
-            open={open}
-            setAutoStep={setAutoStep}
-            len={scores.length}
-          />
-        }
-      >
-        <Route
-          index
-          element={
-            <Questionary
-              selectedItem={selectedItem}
-              updateItemScore={updateItemScore}
-              scores={scores}
-              nextStep={nextStep}
-              backStep={backStep}
+    <>
+      {modal ? (
+        <ModalPrompt setModal={setModal} />
+      ) : (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Layout
+                inventory={inventory}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                isScored={isScored}
+                setOpen={setOpen}
+                autoStep={autoStep}
+                toggleAutoStep={toggleAutoStep}
+                open={open}
+                setAutoStep={setAutoStep}
+                len={scores.length}
+              />
+            }
+          >
+            <Route
+              index
+              element={
+                <Questionary
+                  selectedItem={selectedItem}
+                  updateItemScore={updateItemScore}
+                  scores={scores}
+                  nextStep={nextStep}
+                  backStep={backStep}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="questionary"
-          element={
-            <Questionary
-              selectedItem={selectedItem}
-              updateItemScore={updateItemScore}
-              scores={scores}
-              nextStep={nextStep}
-              backStep={backStep}
+            <Route
+              path="questionary"
+              element={
+                <Questionary
+                  selectedItem={selectedItem}
+                  updateItemScore={updateItemScore}
+                  scores={scores}
+                  nextStep={nextStep}
+                  backStep={backStep}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="results"
-          element={
-            <Results
-              scores={scores}
-              getResults={getResults}
-              fill={fill}
-              empty={empty}
-              clearStorage={clearStorage}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              userList={userList}
-              setUserList={setUserList}
+            <Route
+              path="results"
+              element={
+                <Results
+                  scores={scores}
+                  getResults={getResults}
+                  fill={fill}
+                  empty={empty}
+                  currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
+                  userList={userList}
+                  setUserList={setUserList}
+                />
+              }
             />
-          }
-        />
-      </Route>
-    </Routes>
+          </Route>
+        </Routes>
+      )}
+    </>
+  );
+}
+
+function ModalPrompt({ setModal }) {
+  return (
+    <div>
+      no users <button onClick={() => setModal(false)}>but click here</button>
+    </div>
   );
 }

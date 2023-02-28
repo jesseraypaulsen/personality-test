@@ -10,15 +10,12 @@ export default function Results({
   getResults,
   fill,
   empty,
-  clearStorage,
   currentUser,
   setCurrentUser,
   userList,
   setUserList,
 }) {
   const results = getResults(scores);
-
-  //TODO: get hard-coded data and localStorage separately, aggregate them into the same component state.
 
   for (let i = 0; i < results.length; i++) {
     console.log(
@@ -73,21 +70,6 @@ export default function Results({
         userList={userList}
         setUserList={setUserList}
       />
-      <button onClick={clearStorage} style={{ alignSelf: "center" }}>
-        Clear Storage
-      </button>
-      <button
-        onClick={() => console.log(localStorage)}
-        style={{ alignSelf: "center" }}
-      >
-        Show Storage
-      </button>
-      <button
-        onClick={() => console.log(scores)}
-        style={{ alignSelf: "center" }}
-      >
-        Show Scores
-      </button>
       <NewUserForm
         setNewUsername={setNewUsername}
         newUsername={newUsername}
@@ -99,6 +81,7 @@ export default function Results({
         userList={userList}
         setUserList={setUserList}
       />
+      <TempButtons scores={scores} />
       <BarChart results={results} />
     </div>
   );
@@ -209,6 +192,20 @@ function NewUserForm({
   );
 }
 
+const clearStorage = () => {
+  localStorage.clear();
+  console.log("localStorage: ", localStorage.length);
+};
+
+function TempButtons({ scores }) {
+  return (
+    <div style={{ alignSelf: "center" }}>
+      <button onClick={clearStorage}>Clear Storage</button>
+      <button onClick={() => console.log(localStorage)}>Show Storage</button>
+      <button onClick={() => console.log(scores)}>Show Scores</button>
+    </div>
+  );
+}
 //Good looking button. Usage: <DataButton label="Click Me">
 function DataButton({ label }) {
   return (
