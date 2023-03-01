@@ -210,7 +210,7 @@ function TempButtons({ scores }) {
 function DataButton({ label }) {
   return (
     <span
-      onClick={eraser}
+      onClick={() => console.log("button clicked")}
       style={{
         backgroundColor: "coral",
         alignSelf: "flex-start",
@@ -223,14 +223,6 @@ function DataButton({ label }) {
       }}
     >
       <DataArrayIcon fontSize="large" /> {label}{" "}
-      {/* If the select menu changes currentUser, then this button makes sense.
-        But now the problem is that you have to decide what user to display after you click it. */}
     </span>
   );
-}
-
-function eraser(e) {
-  const item = document.querySelector("select").value;
-  localStorage.removeItem(item);
-  console.log(localStorage);
 }

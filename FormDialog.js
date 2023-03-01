@@ -26,10 +26,16 @@ export default function FormDialog({
     handleClose();
   };
 
+  const leave = () =>
+    (window.location.href = "https://jesseraypaulsen.github.io/portfolio");
+
   return (
     <div>
-      <Dialog open={modal} onClose={handleClose}>
-        <DialogTitle>Personality Test: Enter your name first</DialogTitle>
+      <Dialog
+        open={modal}
+        //onClose={() => {}}
+      >
+        <DialogTitle>Personality Test</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To take the personality test, please enter your name.
@@ -46,8 +52,8 @@ export default function FormDialog({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={startTest}>Take the Test</Button>
+          <Button onClick={leave}>Leave</Button>
         </DialogActions>
       </Dialog>
     </div>

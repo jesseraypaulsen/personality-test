@@ -4,9 +4,7 @@
 
 - Results Dashboard
   - media query for mobile wrt BarChart
-  - modal intro with prompt for profile name, but not if the user is returning from a prior session with data in localStorage. https://mui.com/material-ui/react-dialog/#form-dialogs
-  - accordion on the Dashboard, for hiding/showing all users with buttons for switching to, or deleting.
-  - dashboard -> between header and barchart, there's an arrow or something that you click to expand and see all users.
+  - accordion -> users list
 
 ---
 
@@ -16,6 +14,8 @@
 
 ## Done
 
+- modal intro with prompt for profile name, but not if the user is returning from a prior session with data in localStorage. <span style="color:green">✔</span> (Results Dashboard)
+- a panel that shows all users, with buttons for loading and erasing. <span style="color:green">✔</span> (Results Dashboard)
 - change 'generate data' button with fill function, into a form for username with a checkmark for fill. ie, you can generate data when you create a new user. <span style="color:green">✔</span> (Results Dashboard)
 - Move "generate data" button onto the dashboard instead of the menu. <span style="color:green">✔</span> (Results Dashboard)
 - remove items from the top bar <span style="color:green">✔</span> (removed title; moved one of the icons to Results Dashboard)
