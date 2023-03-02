@@ -7,7 +7,6 @@ import FormDialog from "./FormDialog";
 
 export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
-  //const [loading, setLoading] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userList, setUserList] = useState([]);
   const [modal, setModal] = useState(false);
@@ -28,8 +27,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
     // sort
     for (let n = 0; n < values.length - 1; n++) {
-      console.log("looping over values...", n);
-      console.log("and...", values[n].order, values[n + 1]);
       if (values[n + 1].order < values[n].order) {
         let swap = values[n + 1];
         values[n + 1] = values[n];
@@ -49,11 +46,15 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
   function start(scores) {
     //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
-    if (scores.length == 0) setSelectedItem(inventory[0]);
-    else if (scores.length == 120) {
+    if (scores.length == 0) {
+      console.log("1st entry");
+      setSelectedItem(inventory[0]);
+    } else if (scores.length == 120) {
+      console.log("2nd entry");
       //route to Results
     } else {
       //find the first unanswered question. then get its id.
+      console.log("3rd entry");
       const i = findFirstUnansweredQuestion(scores);
       setSelectedItem(inventory[i]);
     }
@@ -84,9 +85,12 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
   useEffect(() => {
     localStorage.setItem("currentUser", currentUser);
-    const _scores = JSON.parse(localStorage.getItem(currentUser)) || [];
-    setScores(_scores);
-    //start(_scores);
+    //const _scores = JSON.parse(localStorage.getItem(currentUser)) || []; //This breaks the BarChart!
+    const _scores = JSON.parse(localStorage.getItem(currentUser));
+    if (_scores) {
+      setScores(_scores);
+      start(_scores);
+    }
   }, [currentUser]);
 
   useEffect(() => {

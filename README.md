@@ -20,7 +20,8 @@
 
 ## Done
 
-- modal intro with prompt for profile name, but not if the user is returning from a prior session with data in localStorage. <span style="color:green">✔</span> (Results Dashboard)
+- bug: generateFakeData stopped working as of the commit prior to last (still works at commit 8747eeb) <span style="color:green">✔</span>
+- modal intro with prompt for profile name, but not if the user is returning from a prior session with data in localStorage. <span style="color:green">✔</span>
 - a panel that shows all users, with buttons for loading and erasing. <span style="color:green">✔</span> (Results Dashboard)
 - change 'generate data' button with fill function, into a form for username with a checkmark for fill. ie, you can generate data when you create a new user. <span style="color:green">✔</span> (Results Dashboard)
 - Move "generate data" button onto the dashboard instead of the menu. <span style="color:green">✔</span> (Results Dashboard)
