@@ -7,6 +7,7 @@ import FormDialog from "./FormDialog";
 
 export function App({ inventory, processResults, generateFakeScores }) {
   const [scores, setScores] = useState([]);
+  //const [loading, setLoading] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userList, setUserList] = useState([]);
   const [modal, setModal] = useState(false);
@@ -16,6 +17,47 @@ export function App({ inventory, processResults, generateFakeScores }) {
     text: "",
     choices: null,
   });
+
+  const findFirstUnansweredQuestion = (scores) => {
+    const values = scores.map((score) => {
+      const order = inventory.findIndex((item) => item.id === score.id) + 1;
+      return { id: score.id, order };
+    });
+
+    console.log("step 1, values: ", values); //works
+
+    // sort
+    for (let n = 0; n < values.length - 1; n++) {
+      console.log("looping over values...", n);
+      console.log("and...", values[n].order, values[n + 1]);
+      if (values[n + 1].order < values[n].order) {
+        let swap = values[n + 1];
+        values[n + 1] = values[n];
+        values[n] = swap;
+      }
+    }
+
+    console.log("step 2, sorted values: ", values);
+
+    // find and return first unanswered question
+    for (let n = 0; n < values.length - 1; n++) {
+      if (values[n + 1].order - values[n].order > 1) {
+        return values[n].order + 1;
+      }
+    }
+  };
+
+  function start(scores) {
+    //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
+    if (scores.length == 0) setSelectedItem(inventory[0]);
+    else if (scores.length == 120) {
+      //route to Results
+    } else {
+      //find the first unanswered question. then get its id.
+      const i = findFirstUnansweredQuestion(scores);
+      setSelectedItem(inventory[i]);
+    }
+  }
 
   useEffect(() => {
     /* If localStorage is storing a username from a previous session, then there should also be 
@@ -44,6 +86,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
     localStorage.setItem("currentUser", currentUser);
     const _scores = JSON.parse(localStorage.getItem(currentUser)) || [];
     setScores(_scores);
+    //start(_scores);
   }, [currentUser]);
 
   useEffect(() => {
