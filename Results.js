@@ -62,6 +62,8 @@ export default function Results({
       }}
     >
       <h1>{currentUser}</h1>
+      <BarChart results={results} />
+      <TempButtons scores={scores} />
       <UserSelectionMenu
         setCurrentUser={setCurrentUser}
         currentUser={currentUser}
@@ -77,8 +79,6 @@ export default function Results({
         userList={userList}
         setUserList={setUserList}
       />
-      <TempButtons scores={scores} />
-      <BarChart results={results} />
     </div>
   );
 }

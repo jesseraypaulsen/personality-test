@@ -10,6 +10,7 @@
 - Results Dashboard
   - media query for mobile wrt BarChart
   - accordion -> users list
+  - style that emphasizes transition between Questions -- currently it's hard to perceive the change.
 
 ---
 

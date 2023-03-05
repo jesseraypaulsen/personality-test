@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Questionary from "./Questionary";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
@@ -10,6 +10,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
   const [generate, setGenerate] = useState(false);
+  const [init, setInit] = useState(true);
   const [scores, setScores] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userList, setUserList] = useState([]);
@@ -17,6 +18,8 @@ export function App({ inventory, processResults, generateFakeScores }) {
     text: "",
     choices: null,
   });
+
+  const delayEffect = useRef(true);
 
   const navigate = useNavigate();
 
@@ -50,15 +53,14 @@ export function App({ inventory, processResults, generateFakeScores }) {
   function beginTest(scores) {
     //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
     if (scores.length == 0) {
-      console.log("1st entry");
+      console.log("1st decision path");
       setSelectedItem(inventory[0]);
     } else if (scores.length == 120) {
-      console.log("2nd entry");
-      //route to Results
+      console.log("2nd decision path");
       navigate("/results");
     } else {
       //find the first unanswered question. then get its id.
-      console.log("3rd entry");
+      console.log("3rd decision path");
       const i = findFirstUnansweredQuestion(scores);
       setSelectedItem(inventory[i]);
     }
@@ -89,9 +91,8 @@ export function App({ inventory, processResults, generateFakeScores }) {
     if (_scores) {
       // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
       setScores(_scores);
-      beginTest(_scores);
     } else {
-      // for User Creation scenarios (both modal and dashboard)
+      // both User Creation scenarios, modal and dashboard
       if (generate) {
         setScores(generateFakeScores(inventory));
       } else setScores([]);
@@ -100,7 +101,28 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
   useEffect(() => {
     // update localStorage each time setScore is called
-    if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
+    if (currentUser) {
+      localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
+      console.log("localStorage.setItem called");
+    }
+  }, [scores]);
+
+  // This works only partially, because scores is updated twice with an empty array before it's finally updated with data. beginTest always gets called
+  // on the second empty array update, when the length of array is zero, so it always takes the first decision path in beginTest. Why does it update
+  // with an empty array twice ? The inital instantiation of the scores state accounts for the first time. But what about the second?
+  // https://stackoverflow.com/q/59492626 -> How to prevent useEffect from being called the first time its dependency updates?
+  // https://stackoverflow.com/a/59021795 -> "you can't control the re-running of useEffect, you have to use conditionals in useEffect"
+  useEffect(() => {
+    console.log("scores updated", scores);
+    if (!delayEffect.current) {
+      console.log("delayed effect!");
+      if (init) {
+        beginTest(scores);
+        setInit(false);
+        console.log("delayed effect!! test begins");
+      }
+    }
+    delayEffect.current = false;
   }, [scores]);
 
   const getResults = (scores) => processResults(inventory, scores);
@@ -138,7 +160,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
     if (autoStep) {
       setTimeout(() => {
         nextStep(id);
-      }, 1000);
+      }, 500);
     }
   };
 
