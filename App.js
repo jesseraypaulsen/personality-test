@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import Questionary from "./Questionary";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import Results from "./Results";
 import FormDialog from "./FormDialog";
 
 export function App({ inventory, processResults, generateFakeScores }) {
-  const [scores, setScores] = useState([]);
-  const [currentUser, setCurrentUser] = useState();
-  const [userList, setUserList] = useState([]);
   const [modal, setModal] = useState(false);
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
+  const [generate, setGenerate] = useState(false);
+  const [scores, setScores] = useState([]);
+  const [currentUser, setCurrentUser] = useState();
+  const [userList, setUserList] = useState([]);
   const [selectedItem, setSelectedItem] = useState({
     text: "",
     choices: null,
   });
+
+  const navigate = useNavigate();
 
   const findFirstUnansweredQuestion = (scores) => {
     const values = scores.map((score) => {
@@ -44,7 +47,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
     }
   };
 
-  function start(scores) {
+  function beginTest(scores) {
     //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
     if (scores.length == 0) {
       console.log("1st entry");
@@ -52,6 +55,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
     } else if (scores.length == 120) {
       console.log("2nd entry");
       //route to Results
+      navigate("/results");
     } else {
       //find the first unanswered question. then get its id.
       console.log("3rd entry");
@@ -80,22 +84,23 @@ export function App({ inventory, processResults, generateFakeScores }) {
   }, []);
 
   useEffect(() => {
-    console.log("userList changed: ", userList);
-  }, [userList]);
-
-  useEffect(() => {
-    localStorage.setItem("currentUser", currentUser);
-    //const _scores = JSON.parse(localStorage.getItem(currentUser)) || []; //This breaks the BarChart!
+    localStorage.setItem("currentUser", currentUser); // This should not occur when the "currentUser" key is found in the first useEffect (above). But it does anyway.
     const _scores = JSON.parse(localStorage.getItem(currentUser));
     if (_scores) {
+      // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
       setScores(_scores);
-      start(_scores);
+      beginTest(_scores);
+    } else {
+      // for User Creation scenarios (both modal and dashboard)
+      if (generate) {
+        setScores(generateFakeScores(inventory));
+      } else setScores([]);
     }
   }, [currentUser]);
 
   useEffect(() => {
     // update localStorage each time setScore is called
-    if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores));
+    if (currentUser) localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
   }, [scores]);
 
   const getResults = (scores) => processResults(inventory, scores);
@@ -135,15 +140,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
         nextStep(id);
       }, 1000);
     }
-  };
-
-  const fill = () => {
-    const fakeScores = generateFakeScores(inventory);
-    setScores(fakeScores);
-  };
-
-  const empty = () => {
-    setScores([]);
   };
 
   return (
@@ -202,12 +198,12 @@ export function App({ inventory, processResults, generateFakeScores }) {
               <Results
                 scores={scores}
                 getResults={getResults}
-                fill={fill}
-                empty={empty}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 userList={userList}
                 setUserList={setUserList}
+                generate={generate}
+                setGenerate={setGenerate}
               />
             }
           />

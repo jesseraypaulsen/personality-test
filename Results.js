@@ -8,12 +8,12 @@ import { useState } from "react";
 export default function Results({
   scores,
   getResults,
-  fill,
-  empty,
   currentUser,
   setCurrentUser,
   userList,
   setUserList,
+  generate,
+  setGenerate,
 }) {
   const results = getResults(scores);
 
@@ -23,7 +23,6 @@ export default function Results({
     );
   }
 
-  const [generate, setGenerate] = useState(false);
   const [newUsername, setNewUsername] = useState(null);
 
   /*
@@ -37,7 +36,6 @@ export default function Results({
   var user = JSON.parse(localStorage.getItem('user'));
 
   */
-  //const resultScores = results.map((result) => result.score);
   /*
      {  domain
         title
@@ -73,11 +71,9 @@ export default function Results({
       <NewUserForm
         setNewUsername={setNewUsername}
         newUsername={newUsername}
+        generate={generate}
         setGenerate={setGenerate}
         setCurrentUser={setCurrentUser}
-        generate={generate}
-        fill={fill}
-        empty={empty}
         userList={userList}
         setUserList={setUserList}
       />
@@ -133,11 +129,9 @@ function UserSelectionMenu({
 function NewUserForm({
   setNewUsername,
   newUsername,
+  generate,
   setGenerate,
   setCurrentUser,
-  generate,
-  fill,
-  empty,
   userList,
   setUserList,
 }) {
@@ -169,9 +163,6 @@ function NewUserForm({
               if (newUsername) {
                 setCurrentUser(newUsername);
                 setUserList((prev) => [...prev, newUsername]);
-                if (generate)
-                  fill(); // when score changes, the scores are inserted into localStorage with currentUser as the key (see App.js)
-                else empty();
               }
             }}
           >
@@ -180,7 +171,7 @@ function NewUserForm({
           <div style={{ display: "flex" }}>
             <input
               type="checkbox"
-              value="generate"
+              value={generate}
               name="generator"
               onChange={(e) => setGenerate(e.target.checked)}
             ></input>
