@@ -19,7 +19,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
   });
 
   const init = useRef(true);
-  //const delayEffect = useRef(false);
 
   const navigate = useNavigate();
 
@@ -51,18 +50,15 @@ export function App({ inventory, processResults, generateFakeScores }) {
   };
 
   function beginTest(scores) {
-    console.log("beginTest -> currentUser: ", currentUser);
-    console.log("beginTest -> length of scores: ", scores.length);
-    //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
     if (scores.length == 0) {
-      console.log("1st decision path");
+      console.log("beginTest -> 1st decision path");
       setSelectedItem(inventory[0]);
     } else if (scores.length == 120) {
-      console.log("2nd decision path");
+      console.log("beginTest -> 2nd decision path");
       navigate("/results");
     } else {
       //find the first unanswered question. then get its id.
-      console.log("3rd decision path");
+      console.log("beginTest -> 3rd decision path");
       const i = findFirstUnansweredQuestion(scores);
       setSelectedItem(inventory[i]);
     }
@@ -91,34 +87,30 @@ export function App({ inventory, processResults, generateFakeScores }) {
     if (currentUser) {
       localStorage.setItem("currentUser", currentUser); // This line should not occur when the "currentUser" key is found in the first useEffect (above). But it does anyway.
 
-      //this UseEffect first runs when currentUser is initialized as defined. and then the second block of the conditional executes.
-      //it runs again when currentUser is updated by the above stuff. it gets values from localStorage and then calls setScores (in either block). but
-      //the second useEffect[scores] runs and says that scores has zero length. it's a race condition.
-      //possible solution: wrap the entire body here in if(currentUser){}. eliminate the second useEffect[scores]. and then using one init var (not 2),
-      //condition and call beginTest here.
       let _scores = JSON.parse(localStorage.getItem(currentUser));
       if (_scores) {
         console.log("_scores is: ", _scores);
         // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
-        //if (init.current && currentUser) delayEffect.current = true;
         setScores(_scores);
         if (init.current) {
           beginTest(_scores);
           init.current = false;
         }
       } else {
+        // both User Creation scenarios, modal and dashboard
         console.log("_scores is undefined");
         console.log("currentUser: ", currentUser);
-        // both User Creation scenarios, modal and dashboard
-        //if (init.current && currentUser) delayEffect.current = true;
         if (generate) {
           _scores = generateFakeScores(inventory);
-          //setScores(generateFakeScores(inventory));
         } else {
           _scores = [];
-          //setScores([]);
         }
         setScores(_scores);
+
+        //create {username:scores} entry in localStorage
+        localStorage.setItem(currentUser, JSON.stringify(scores));
+        console.log("user creation - localStorage: ", localStorage);
+
         if (init.current) {
           beginTest(_scores);
           init.current = false;
@@ -128,12 +120,12 @@ export function App({ inventory, processResults, generateFakeScores }) {
   }, [currentUser]);
 
   //TODO: eliminate this useEffect, and call localStorage from useEffect[currentUser] in the second block of the conditional.
-  useEffect(() => {
+  /*useEffect(() => {
     // update localStorage each time setScore is called
     if (currentUser) {
       localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
     }
-  }, [scores]);
+  }, [scores]);*/
 
   /*
   useEffect(() => {
@@ -177,6 +169,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
     const newScores = uniqByKeepLast([...scores, { id, value: newScore }]);
     setScores(newScores);
+
+    if (currentUser)
+      localStorage.setItem(currentUser, JSON.stringify(newScores));
+    console.log("updateItemScore - localStorage: ", localStorage);
 
     if (autoStep) {
       setTimeout(() => {
