@@ -2,33 +2,23 @@
 
 **_The overall goal is mobile-friendly._**
 
-- The 3 entrypoints:
-  1. If all 120 scores are in the array, then redirect user to the Results Dashboard.
-  2. If 0 scores are in the array, then call setSelectedItem with Question #1 from the inventory.
-  3. Else, find the first unanswered question, then call setSelectedItem(firstUnansweredQuestion).
+- beginTest (w/ 3 decision paths)
+
+  - bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data
+  - bug: findFirstUnansweredQuestion (third path - some answered, some not)
+
 - https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
 - Results Dashboard
   - media query for mobile wrt BarChart
   - accordion -> users list
   - style that emphasizes transition between Questions -- currently it's hard to perceive the change.
+  - probably another navigation icon-button for going back to quesion-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
 
 ---
 
 - <s>(change to consider): using dynamic parameterized views with React-Router eg /questionary/67 or /questionary/103.</s> The inventory order changes
   for each session, so this might mislead users into thinking that a question will persist at a given url.
 - Someday/Maybe: change top bar to a small partial sidebar that expands/collapses at the press of a button.
-
----
-
-## Done
-
-- bug: generateFakeData stopped working as of the commit prior to last (still works at commit 8747eeb) <span style="color:green">✔</span>
-- modal intro with prompt for profile name, but not if the user is returning from a prior session with data in localStorage. <span style="color:green">✔</span>
-- a panel that shows all users, with buttons for loading and erasing. <span style="color:green">✔</span> (Results Dashboard)
-- change 'generate data' button with fill function, into a form for username with a checkmark for fill. ie, you can generate data when you create a new user. <span style="color:green">✔</span> (Results Dashboard)
-- Move "generate data" button onto the dashboard instead of the menu. <span style="color:green">✔</span> (Results Dashboard)
-- remove items from the top bar <span style="color:green">✔</span> (removed title; moved one of the icons to Results Dashboard)
-- deploy demo on cloud <span style="color:green">✔</span>
 
 ---
 

@@ -26,17 +26,6 @@ export default function Results({
   const [newUsername, setNewUsername] = useState(null);
 
   /*
-
-  Because localStorage stores key-value pairs, to store a javascript object we need to serialize it first:
-
-  localStorage.setItem('user', JSON.stringify(user));
-
-  Then to retrieve it from the store and convert to an object again:
-
-  var user = JSON.parse(localStorage.getItem('user'));
-
-  */
-  /*
      {  domain
         title
         shortDescription

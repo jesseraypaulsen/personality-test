@@ -10,7 +10,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
   const [open, setOpen] = useState(false);
   const [autoStep, setAutoStep] = useState(true);
   const [generate, setGenerate] = useState(false);
-  const [init, setInit] = useState(true);
   const [scores, setScores] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [userList, setUserList] = useState([]);
@@ -19,7 +18,8 @@ export function App({ inventory, processResults, generateFakeScores }) {
     choices: null,
   });
 
-  const delayEffect = useRef(true);
+  const init = useRef(true);
+  //const delayEffect = useRef(false);
 
   const navigate = useNavigate();
 
@@ -51,6 +51,8 @@ export function App({ inventory, processResults, generateFakeScores }) {
   };
 
   function beginTest(scores) {
+    console.log("beginTest -> currentUser: ", currentUser);
+    console.log("beginTest -> length of scores: ", scores.length);
     //also note: the first instantiation of scores will be an empty array, so the first render will find scores.length to be zero no matter what.
     if (scores.length == 0) {
       console.log("1st decision path");
@@ -86,44 +88,63 @@ export function App({ inventory, processResults, generateFakeScores }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("currentUser", currentUser); // This should not occur when the "currentUser" key is found in the first useEffect (above). But it does anyway.
-    const _scores = JSON.parse(localStorage.getItem(currentUser));
-    if (_scores) {
-      // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
-      setScores(_scores);
-    } else {
-      // both User Creation scenarios, modal and dashboard
-      if (generate) {
-        setScores(generateFakeScores(inventory));
-      } else setScores([]);
+    if (currentUser) {
+      localStorage.setItem("currentUser", currentUser); // This line should not occur when the "currentUser" key is found in the first useEffect (above). But it does anyway.
+
+      //this UseEffect first runs when currentUser is initialized as defined. and then the second block of the conditional executes.
+      //it runs again when currentUser is updated by the above stuff. it gets values from localStorage and then calls setScores (in either block). but
+      //the second useEffect[scores] runs and says that scores has zero length. it's a race condition.
+      //possible solution: wrap the entire body here in if(currentUser){}. eliminate the second useEffect[scores]. and then using one init var (not 2),
+      //condition and call beginTest here.
+      let _scores = JSON.parse(localStorage.getItem(currentUser));
+      if (_scores) {
+        console.log("_scores is: ", _scores);
+        // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
+        //if (init.current && currentUser) delayEffect.current = true;
+        setScores(_scores);
+        if (init.current) {
+          beginTest(_scores);
+          init.current = false;
+        }
+      } else {
+        console.log("_scores is undefined");
+        console.log("currentUser: ", currentUser);
+        // both User Creation scenarios, modal and dashboard
+        //if (init.current && currentUser) delayEffect.current = true;
+        if (generate) {
+          _scores = generateFakeScores(inventory);
+          //setScores(generateFakeScores(inventory));
+        } else {
+          _scores = [];
+          //setScores([]);
+        }
+        setScores(_scores);
+        if (init.current) {
+          beginTest(_scores);
+          init.current = false;
+        }
+      }
     }
   }, [currentUser]);
 
+  //TODO: eliminate this useEffect, and call localStorage from useEffect[currentUser] in the second block of the conditional.
   useEffect(() => {
     // update localStorage each time setScore is called
     if (currentUser) {
       localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
-      console.log("localStorage.setItem called");
     }
   }, [scores]);
 
-  // This works only partially, because scores is updated twice with an empty array before it's finally updated with data. beginTest always gets called
-  // on the second empty array update, when the length of array is zero, so it always takes the first decision path in beginTest. Why does it update
-  // with an empty array twice ? The inital instantiation of the scores state accounts for the first time. But what about the second?
-  // https://stackoverflow.com/q/59492626 -> How to prevent useEffect from being called the first time its dependency updates?
-  // https://stackoverflow.com/a/59021795 -> "you can't control the re-running of useEffect, you have to use conditionals in useEffect"
+  /*
   useEffect(() => {
-    console.log("scores updated", scores);
-    if (!delayEffect.current) {
-      console.log("delayed effect!");
-      if (init) {
-        beginTest(scores);
-        setInit(false);
-        console.log("delayed effect!! test begins");
-      }
+    if (delayEffect.current) {
+      console.log("beginTest");
+      beginTest(scores);
+      delayEffect.current = false;
+      init.current = false;
     }
-    delayEffect.current = false;
   }, [scores]);
+  */
 
   const getResults = (scores) => processResults(inventory, scores);
 
