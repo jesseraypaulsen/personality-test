@@ -141,7 +141,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
     if (currentUser)
       localStorage.setItem(currentUser, JSON.stringify(newScores));
-    console.log("updateItemScore - localStorage: ", localStorage);
 
     if (autoStep) {
       setTimeout(() => {

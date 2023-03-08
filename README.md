@@ -17,17 +17,29 @@
 - bug: findFirstUnansweredQuestion (third path - some answered, some not) for beginTest ✔
 - bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data (Results Dashboard) ✔
 
-## Additional Notes
+## Additional Notes on Application Logic
 
-Breaking down the application logic:
+1. Question entity
 
-1. Using nextStep/backStep as a template... the question is retrieved from inventory variable, and then setSelectedItem(question). Then QuestionCard
-   is updated because selectedItem is one of its props. In QuestionCard the user invokes updateItemScore(id,score) when selecting one of the radio options,
-   which calls setScores. Whenever scores is updated then localStorage is updated with the new scores.
-   In QuestionCard.js you find that updateItemScore depends on selectedItem. selectedItem is the inventory item (see nextStep/backStep). updateItemScore
-   only takes the id from selectedItem. it will pair this id with a score when the user answers a question.
+Use Cases
 
-2. User account system. Three scenarios.
-   - the first scenario is the initial loading scenario. it has two paths: if localStorage has a "currentUser" key then setCurrentUser (in first useEffect) and setScores (in second useEffect). or block further action with a modal until setCurrentUser is called.
-   - the second scenario is creating a user from the dashboard. it also has two paths: generated data vs empty. it calls both setCurrentUser from handler and setScores in the 2nd useEffect.
-   - the third scenario is loading a pre-existing user from the dashboard. As of now, it calls setCurrentUser from the handler and then depends on the setScores call in the second useEffect.
+- answer a question
+- skip a question (nextStep)
+- go back to the previous question (backStep)
+- change a previous answer (implicit) ??
+
+Important implementation details
+For answering questions, when the user clicks a radio option, the handler updates the scores state and the localStorage entry for the current user.
+For nextStep and backStep, the question is retrieved from inventory variable and assigned to selectedItem state. Then QuestionCard is updated because selectedItem is one of its props.
+
+2. User entity
+
+Use Cases
+
+- beginning of a new session. is the user returning from a previous session or is the user new?
+- creating a user from the dashboard.
+- loading a pre-existing user from the dashboard.
+
+Important implementation details
+Beginning a new session: if localStorage has a "currentUser" key then setCurrentUser (in first useEffect) and setScores (in second useEffect). Or block further action with a modal until the user creates a name - at which point call setCurrentUser and setScores([]).
+Each scenario must update both currentUser and scores states.
