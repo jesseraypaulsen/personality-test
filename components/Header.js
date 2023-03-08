@@ -25,7 +25,7 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
           <Link to="results">
             <BarChartIcon
               fontSize="large"
-              color={len < 120 ? "disabled" : ""}
+              // color={len < 120 ? "disabled" : ""}
               sx={{ cursor: "pointer" }}
             />
           </Link>

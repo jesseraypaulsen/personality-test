@@ -54,11 +54,12 @@ export default function Results({
       }}
     >
       <h1 style={{ padding: "1em" }}>{currentUser}</h1>
-      {scores.length > 0 ? (
+      {scores.length === 120 ? (
         <BarChart results={results} />
       ) : (
         <div style={{ alignSelf: "center" }}>
-          You have not answered any questions yet.
+          You have answered {scores.length} out of 120 questions. Your results
+          will display here after you've completed all of the questions.
         </div>
       )}
       <hr
@@ -110,38 +111,50 @@ function UserSelectionMenu({
       }}
     >
       <h2>All Users</h2>
-      {userList.map((key) => (
-        <div
-          style={{
-            display: "flex",
-            gap: "1em",
-            alignItems: "center",
-          }}
-          className={key === currentUser ? "active-user" : ""}
-        >
-          {key}
-          <button
-            disabled={key === currentUser}
-            className="userlist-button"
-            onClick={(e) => setCurrentUser(key)}
+      <table>
+        {userList.map((key) => (
+          <tr
+            // style={{
+            //   // display: "flex",
+            //   // gap: "1em",
+            //   // alignItems: "center",
+            //   display: "table-row",
+            // }}
+            className={key === currentUser ? "active-user" : ""}
           >
-            <SwapHorizIcon />
-            {/*Load*/}
-          </button>{" "}
-          <button
-            disabled={key === currentUser}
-            className="userlist-button"
-            onClick={(e) => {
-              localStorage.removeItem(key);
-              setUserList((prev) => [...prev.filter((user) => user !== key)]);
-              console.log(`erased ${key}`, localStorage);
-            }}
-          >
-            <PersonRemoveIcon />
-            {/* Erase */}
-          </button>
-        </div>
-      ))}
+            {/* <div style={{ display: "table-cell" }}>{key}</div> */}
+            <td>{key}</td>
+            <td>
+              <button
+                disabled={key === currentUser}
+                className="userlist-button"
+                onClick={(e) => setCurrentUser(key)}
+                style={{ display: "table-cell" }}
+              >
+                <SwapHorizIcon />
+                {/*Load*/}
+              </button>{" "}
+            </td>
+            <td>
+              <button
+                disabled={key === currentUser}
+                className="userlist-button"
+                onClick={(e) => {
+                  localStorage.removeItem(key);
+                  setUserList((prev) => [
+                    ...prev.filter((user) => user !== key),
+                  ]);
+                  console.log(`erased ${key}`, localStorage);
+                }}
+                style={{ display: "table-cell" }}
+              >
+                <PersonRemoveIcon />
+                {/* Erase */}
+              </button>
+            </td>
+          </tr>
+        ))}
+      </table>
     </div>
   );
 }
