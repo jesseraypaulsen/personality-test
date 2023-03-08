@@ -17,29 +17,30 @@
 - bug: findFirstUnansweredQuestion (third path - some answered, some not) for beginTest ✔
 - bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data (Results Dashboard) ✔
 
-## Additional Notes on Application Logic
+---
 
-1. Question entity
+### Notes on Application Logic
 
-Use Cases
+## use cases for the _Question_ entity
 
 - answer a question
 - skip a question (nextStep)
 - go back to the previous question (backStep)
 - change a previous answer (implicit) ??
 
-Important implementation details
+### Important implementation details
+
 For answering questions, when the user clicks a radio option, the handler updates the scores state and the localStorage entry for the current user.
+
 For nextStep and backStep, the question is retrieved from inventory variable and assigned to selectedItem state. Then QuestionCard is updated because selectedItem is one of its props.
 
-2. User entity
-
-Use Cases
+## use cases for the _User_ entity
 
 - beginning of a new session. is the user returning from a previous session or is the user new?
 - creating a user from the dashboard.
 - loading a pre-existing user from the dashboard.
 
-Important implementation details
+### Important implementation details
+
 Beginning a new session: if localStorage has a "currentUser" key then setCurrentUser (in first useEffect) and setScores (in second useEffect). Or block further action with a modal until the user creates a name - at which point call setCurrentUser and setScores([]).
 Each scenario must update both currentUser and scores states.
