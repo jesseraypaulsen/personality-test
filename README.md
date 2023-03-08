@@ -2,12 +2,7 @@
 
 **_The overall goal is mobile-friendly._**
 
-- beginTest (w/ 3 decision paths)
-
-  - bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data
-  - bug: findFirstUnansweredQuestion (third path - some answered, some not)
-
-- https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
+- fix: vercel + react router -> https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
 - Results Dashboard
   - media query for mobile wrt BarChart
   - accordion -> users list
@@ -16,11 +11,11 @@
 
 ---
 
-- <s>(change to consider): using dynamic parameterized views with React-Router eg /questionary/67 or /questionary/103.</s> The inventory order changes
-  for each session, so this might mislead users into thinking that a question will persist at a given url.
-- Someday/Maybe: change top bar to a small partial sidebar that expands/collapses at the press of a button.
+## DONE
 
----
+- beginTest (w/ 3 decision paths) ✔
+- bug: findFirstUnansweredQuestion (third path - some answered, some not) for beginTest ✔
+- bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data (Results Dashboard) ✔
 
 ## Additional Notes
 

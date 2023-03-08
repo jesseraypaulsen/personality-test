@@ -28,37 +28,28 @@ export function App({ inventory, processResults, generateFakeScores }) {
       return { id: score.id, order };
     });
 
-    console.log("step 1, values: ", values); //works
+    // sort array of objects for the value of a property
+    // https://stackoverflow.com/q/979256
+    values.sort((a, b) => a.order - b.order);
 
-    // sort
-    for (let n = 0; n < values.length - 1; n++) {
-      if (values[n + 1].order < values[n].order) {
-        let swap = values[n + 1];
-        values[n + 1] = values[n];
-        values[n] = swap;
+    // find and return the index of the first unanswered question in the inventory array
+
+    if (values[0].order > 1) return 0; // is the first question unanswered?
+    else
+      for (let n = 0; n < values.length - 1; n++) {
+        // is there a gap between entries?
+        if (values[n + 1].order - values[n].order > 1) {
+          return values[n].order;
+        }
       }
-    }
-
-    console.log("step 2, sorted values: ", values);
-
-    // find and return first unanswered question
-    for (let n = 0; n < values.length - 1; n++) {
-      if (values[n + 1].order - values[n].order > 1) {
-        return values[n].order + 1;
-      }
-    }
   };
 
   function beginTest(scores) {
     if (scores.length == 0) {
-      console.log("beginTest -> 1st decision path");
       setSelectedItem(inventory[0]);
     } else if (scores.length == 120) {
-      console.log("beginTest -> 2nd decision path");
       navigate("/results");
     } else {
-      //find the first unanswered question. then get its id.
-      console.log("beginTest -> 3rd decision path");
       const i = findFirstUnansweredQuestion(scores);
       setSelectedItem(inventory[i]);
     }
@@ -85,11 +76,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
   useEffect(() => {
     if (currentUser) {
-      localStorage.setItem("currentUser", currentUser); // This line should not occur when the "currentUser" key is found in the first useEffect (above). But it does anyway.
+      localStorage.setItem("currentUser", currentUser); // This line is redundant when the "currentUser" key is found in the first useEffect (above).
 
       let _scores = JSON.parse(localStorage.getItem(currentUser));
       if (_scores) {
-        console.log("_scores is: ", _scores);
         // scenarios: when currentUser key is found in localStorage; and Load User (dashboard)
         setScores(_scores);
         if (init.current) {
@@ -98,8 +88,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
         }
       } else {
         // both User Creation scenarios, modal and dashboard
-        console.log("_scores is undefined");
-        console.log("currentUser: ", currentUser);
+
         if (generate) {
           _scores = generateFakeScores(inventory);
         } else {
@@ -108,8 +97,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
         setScores(_scores);
 
         //create {username:scores} entry in localStorage
-        localStorage.setItem(currentUser, JSON.stringify(scores));
-        console.log("user creation - localStorage: ", localStorage);
+        localStorage.setItem(currentUser, JSON.stringify(_scores));
 
         if (init.current) {
           beginTest(_scores);
@@ -118,25 +106,6 @@ export function App({ inventory, processResults, generateFakeScores }) {
       }
     }
   }, [currentUser]);
-
-  //TODO: eliminate this useEffect, and call localStorage from useEffect[currentUser] in the second block of the conditional.
-  /*useEffect(() => {
-    // update localStorage each time setScore is called
-    if (currentUser) {
-      localStorage.setItem(currentUser, JSON.stringify(scores)); // This should not occur for Load User scenarios. But it does anyway.
-    }
-  }, [scores]);*/
-
-  /*
-  useEffect(() => {
-    if (delayEffect.current) {
-      console.log("beginTest");
-      beginTest(scores);
-      delayEffect.current = false;
-      init.current = false;
-    }
-  }, [scores]);
-  */
 
   const getResults = (scores) => processResults(inventory, scores);
 
