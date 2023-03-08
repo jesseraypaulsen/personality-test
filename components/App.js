@@ -104,6 +104,15 @@ export function App({ inventory, processResults, generateFakeScores }) {
           init.current = false;
         }
       }
+
+      //make sure currentUser is at the top of the userList array, so that it always appears at the top on the Dashboard
+      if (userList[0] !== currentUser) {
+        let index = userList.findIndex((user) => user === currentUser);
+        setUserList((prev) => [
+          currentUser,
+          ...prev.filter((user) => user !== currentUser),
+        ]);
+      }
     }
   }, [currentUser]);
 

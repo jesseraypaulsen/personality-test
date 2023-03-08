@@ -4,6 +4,9 @@
 import BarChart from "./BarChart";
 import DataArrayIcon from "@mui/icons-material/DataArray";
 import { useState } from "react";
+import "../styles/dashboard.css";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 export default function Results({
   scores,
@@ -50,9 +53,25 @@ export default function Results({
         gap: "3em",
       }}
     >
-      <h1>{currentUser}</h1>
-      <BarChart results={results} />
-      <TempButtons scores={scores} />
+      <h1 style={{ padding: "1em" }}>{currentUser}</h1>
+      {scores.length > 0 ? (
+        <BarChart results={results} />
+      ) : (
+        <div style={{ alignSelf: "center" }}>
+          You have not answered any questions yet.
+        </div>
+      )}
+      <hr
+        style={{
+          border: "0",
+          clear: "both",
+          display: "block",
+          width: "96%",
+          backgroundColor: "#a0a0a0",
+          height: "1px",
+        }}
+      />{" "}
+      {/*https://stackoverflow.com/a/12640013 */}
       <UserSelectionMenu
         setCurrentUser={setCurrentUser}
         currentUser={currentUser}
@@ -68,6 +87,7 @@ export default function Results({
         userList={userList}
         setUserList={setUserList}
       />
+      <TempButtons scores={scores} /> {/*for testing purposes only*/}
     </div>
   );
 }
@@ -85,29 +105,40 @@ function UserSelectionMenu({
         flexDirection: "column",
         alignSelf: "center",
         gap: "1em",
+        border: "1px solid black",
+        padding: "1em",
       }}
     >
-      <h3>All Users</h3>
+      <h2>All Users</h2>
       {userList.map((key) => (
         <div
-          style={{ display: "flex", gap: "1em", border: ".5px green dotted" }}
+          style={{
+            display: "flex",
+            gap: "1em",
+            alignItems: "center",
+          }}
+          className={key === currentUser ? "active-user" : ""}
         >
           {key}
           <button
             disabled={key === currentUser}
+            className="userlist-button"
             onClick={(e) => setCurrentUser(key)}
           >
-            Load
+            <SwapHorizIcon />
+            {/*Load*/}
           </button>{" "}
           <button
             disabled={key === currentUser}
+            className="userlist-button"
             onClick={(e) => {
               localStorage.removeItem(key);
               setUserList((prev) => [...prev.filter((user) => user !== key)]);
               console.log(`erased ${key}`, localStorage);
             }}
           >
-            Erase
+            <PersonRemoveIcon />
+            {/* Erase */}
           </button>
         </div>
       ))}
@@ -125,49 +156,50 @@ function NewUserForm({
   setUserList,
 }) {
   return (
-    <form onSubmit={(e) => e.preventDefault()} style={{ alignSelf: "center" }}>
-      <fieldset>
-        <legend>Create a new user</legend>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "1em",
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      style={{ alignSelf: "center", border: "1px solid black", padding: "1em" }}
+    >
+      <h2>Create a new user</h2>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "1em",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="type username here..."
+          onChange={(e) => setNewUsername(e.target.value)}
+        ></input>
+        <button
+          onClick={() => {
+            const testUsername = userList.find((key) => key === newUsername);
+
+            if (testUsername) {
+              alert("that name is already used");
+              return;
+            }
+            if (newUsername) {
+              setCurrentUser(newUsername);
+              setUserList((prev) => [...prev, newUsername]);
+            }
           }}
         >
+          OK
+        </button>
+        <div style={{ display: "flex" }}>
           <input
-            type="text"
-            placeholder="type username here..."
-            onChange={(e) => setNewUsername(e.target.value)}
+            type="checkbox"
+            value={generate}
+            name="generator"
+            onChange={(e) => setGenerate(e.target.checked)}
           ></input>
-          <button
-            onClick={() => {
-              const testUsername = userList.find((key) => key === newUsername);
-
-              if (testUsername) {
-                alert("that name is already used");
-                return;
-              }
-              if (newUsername) {
-                setCurrentUser(newUsername);
-                setUserList((prev) => [...prev, newUsername]);
-              }
-            }}
-          >
-            OK
-          </button>
-          <div style={{ display: "flex" }}>
-            <input
-              type="checkbox"
-              value={generate}
-              name="generator"
-              onChange={(e) => setGenerate(e.target.checked)}
-            ></input>
-            <label for="generator">Generate Data</label>
-          </div>
+          <label for="generator">Generate Data</label>
         </div>
-      </fieldset>
+      </div>
     </form>
   );
 }
@@ -177,6 +209,7 @@ const clearStorage = () => {
   console.log("localStorage: ", localStorage.length);
 };
 
+// for testing, not for production
 function TempButtons({ scores }) {
   return (
     <div style={{ alignSelf: "center" }}>

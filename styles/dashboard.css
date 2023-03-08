@@ -1,0 +1,8 @@
+.active-user {
+  background-color: #b4edc3;
+}
+
+.active-user .userlist-button {
+  /* display: none; */
+  visibility: hidden;
+}

@@ -2,7 +2,7 @@
 //https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/series/#bar-series
 //https://css-tricks.com/making-a-bar-chart-with-css-grid/
 
-import "../barchart.css";
+import "../styles/barchart.css";
 /* I was going to use a library (above), but the data is too simple for those tools. 
 The common use case is plotting a thing that changes over time -- where each bar
 is an instance of the same thing over time, and often its a grouping of things (see example above).

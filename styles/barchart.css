@@ -8,6 +8,8 @@
   margin-left: auto;
   margin-right: auto;
   margin: 3em auto 0;
+  border: 1px solid black;
+  padding: 1em;
 }
 
 .chart [class*="bar"] {
@@ -22,4 +24,3 @@
   grid-row-end: 122;
   justify-self: center;
 }
-
