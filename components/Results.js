@@ -111,50 +111,51 @@ function UserSelectionMenu({
       }}
     >
       <h2>All Users</h2>
-      <table>
+      <div className="userlist">
         {userList.map((key) => (
-          <tr
-            // style={{
-            //   // display: "flex",
-            //   // gap: "1em",
-            //   // alignItems: "center",
-            //   display: "table-row",
-            // }}
-            className={key === currentUser ? "active-user" : ""}
-          >
-            {/* <div style={{ display: "table-cell" }}>{key}</div> */}
-            <td>{key}</td>
-            <td>
-              <button
-                disabled={key === currentUser}
-                className="userlist-button"
-                onClick={(e) => setCurrentUser(key)}
-                style={{ display: "table-cell" }}
-              >
-                <SwapHorizIcon />
-                {/*Load*/}
-              </button>{" "}
-            </td>
-            <td>
-              <button
-                disabled={key === currentUser}
-                className="userlist-button"
-                onClick={(e) => {
-                  localStorage.removeItem(key);
-                  setUserList((prev) => [
-                    ...prev.filter((user) => user !== key),
-                  ]);
-                  console.log(`erased ${key}`, localStorage);
-                }}
-                style={{ display: "table-cell" }}
-              >
-                <PersonRemoveIcon />
-                {/* Erase */}
-              </button>
-            </td>
-          </tr>
+          <div className={key === currentUser ? "active-user" : ""}>
+            {/* <span style={{ flexBasis: "60%" }}>{key}</span> */}
+            {/* <span>{key}</span> */}
+            {/* <span style={{ flexBasis: "25ch" }}>{key}</span> */}
+            {/* <span style={{ flexBasis: "255px" }}>{key}</span> */}
+            {/* <span style={{ flex: "0 1 255px", minWidth: "27ch" }}>{key}</span> */}
+            {/* <span style={{ flex: "0 1 255px" }}>{key}</span> */}
+            {/* <span style={{ flex: "0 1 auto" }}>{key}</span> */}
+            {/* <span style={{ flex: "0 1 auto", minWidth: "30ch" }}>{key}</span> */}
+            <span
+              style={{
+                minWidth: "30ch",
+                display: "flex",
+                //justifyContent: "center",
+                alignItems: "center",
+                //textAlign: "center",
+                paddingLeft: "1em",
+              }}
+            >
+              {key}
+            </span>
+            <span
+              disabled={key === currentUser}
+              className="userlist-button"
+              onClick={(e) => setCurrentUser(key)}
+            >
+              <SwapHorizIcon />
+              {/*Load*/}
+            </span>{" "}
+            <span
+              disabled={key === currentUser}
+              className="userlist-button"
+              onClick={(e) => {
+                localStorage.removeItem(key);
+                setUserList((prev) => [...prev.filter((user) => user !== key)]);
+              }}
+            >
+              <PersonRemoveIcon />
+              {/* Erase */}
+            </span>
+          </div>
         ))}
-      </table>
+      </div>
     </div>
   );
 }
@@ -185,6 +186,7 @@ function NewUserForm({
         <input
           type="text"
           placeholder="type username here..."
+          maxlength="25"
           onChange={(e) => setNewUsername(e.target.value)}
         ></input>
         <button
@@ -217,38 +219,13 @@ function NewUserForm({
   );
 }
 
-const clearStorage = () => {
-  localStorage.clear();
-  console.log("localStorage: ", localStorage.length);
-};
-
 // for testing, not for production
 function TempButtons({ scores }) {
   return (
     <div style={{ alignSelf: "center" }}>
-      <button onClick={clearStorage}>Clear Storage</button>
+      <button onClick={() => localStorage.clear()}>Clear Storage</button>
       <button onClick={() => console.log(localStorage)}>Show Storage</button>
       <button onClick={() => console.log(scores)}>Show Scores</button>
     </div>
-  );
-}
-//Good looking button. Usage: <DataButton label="Click Me">
-function DataButton({ label }) {
-  return (
-    <span
-      onClick={() => console.log("button clicked")}
-      style={{
-        backgroundColor: "coral",
-        alignSelf: "flex-start",
-        cursor: "pointer",
-        border: "2px solid black",
-        display: "flex",
-        alignItems: "center",
-        padding: "0.5em",
-        margin: "1em",
-      }}
-    >
-      <DataArrayIcon fontSize="large" /> {label}{" "}
-    </span>
   );
 }

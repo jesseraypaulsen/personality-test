@@ -1,8 +1,29 @@
 .active-user {
-  background-color: #b4edc3;
+  background-color: #fcf8f4;
 }
 
 .active-user .userlist-button {
   /* display: none; */
   visibility: hidden;
+}
+
+.userlist-button {
+  /* flex-basis: 20%; */
+  color: limegreen;
+  cursor: pointer;
+  border: 0.5px solid limegreen;
+  margin: 1em;
+  padding: 0.5em;
+  opacity: 0.4;
+}
+
+.userlist {
+  display: flex;
+  flex-direction: column;
+}
+
+.userlist > * {
+  display: flex;
+  background-color: #fcf8f4;
+  border: 0.5px solid black;
 }
