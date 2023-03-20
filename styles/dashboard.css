@@ -8,7 +8,6 @@
 }
 
 .userlist-button {
-  /* flex-basis: 20%; */
   color: limegreen;
   cursor: pointer;
   border: 0.5px solid limegreen;
