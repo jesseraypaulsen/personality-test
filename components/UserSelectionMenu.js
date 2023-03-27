@@ -25,6 +25,7 @@ export function UserSelectionMenu({
             <span
               style={{
                 minWidth: "30ch",
+                //flex: "0 0 255px",
                 display: "flex",
                 alignItems: "center",
                 paddingLeft: "1em",
