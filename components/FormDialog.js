@@ -49,6 +49,7 @@ export default function FormDialog({
             variant="standard"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
+            inputProps={{ maxLength: 25 }}
           />
         </DialogContent>
         <DialogActions>
