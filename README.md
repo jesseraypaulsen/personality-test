@@ -1,7 +1,6 @@
 ## Todos
 
-**_The overall goal is mobile-friendly._**
-
+- mobile-friendly
 - change npm script and server
 - fix: vercel + react router -> https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
 - Results Dashboard
@@ -10,16 +9,6 @@
   - users list -> make columns in each user row the same width as the columns in all other user rows
   - style that emphasizes transition between Questions -- currently it's hard to perceive the change.
   - probably another navigation icon-button for going back to quesion-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
-
----
-
-## DONE
-
-- beginTest (w/ 3 decision paths) ✔
-- bug: findFirstUnansweredQuestion (third path - some answered, some not) for beginTest ✔
-- bug: useEffect -> always takes the first decision path; must execute only once; scores updated with empty array twice before it gets data (Results Dashboard) ✔
-
----
 
 ### Notes on Application Logic
 
