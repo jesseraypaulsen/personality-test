@@ -6,6 +6,7 @@ import { useState } from "react";
 import "../styles/dashboard.css";
 import { UserSelectionMenu } from "./UserSelectionMenu";
 import { NewUserForm } from "./NewUserForm";
+import { Report } from "./Report"
 
 export default function Results({
   scores,
@@ -88,6 +89,7 @@ export default function Results({
         setUserList={setUserList}
       />
       <TempButtons scores={scores} /> {/*for testing purposes only*/}
+      <Report results={results} />
     </div>
   );
 }
