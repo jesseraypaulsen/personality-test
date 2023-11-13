@@ -1,8 +1,14 @@
+
+.userlist-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 1em;
+}
+
 .userlist-button {
   color: limegreen;
   cursor: pointer;
-  border: 0.5px solid limegreen;
-  margin: 1em;
   padding: 0.5em;
   opacity: 0.4;
 }
@@ -15,7 +21,7 @@
 .userlist > * {
   display: flex;
   background-color: #fcf8f4;
-  border: 0.5px solid black;
+  border-bottom: 0.2px solid lightgray;
 }
 
 .active-user {
@@ -23,6 +29,5 @@
 }
 
 .active-user .userlist-button {
-  /* display: none; */
   visibility: hidden;
 }

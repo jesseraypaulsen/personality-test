@@ -8,23 +8,14 @@ export function UserSelectionMenu({
   setUserList,
 }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignSelf: "center",
-        gap: "1em",
-        border: "1px solid black",
-        padding: "1em",
-      }}
-    >
+    <div className="userlist-container">
       <h2>All Users</h2>
       <div className="userlist">
         {userList.map((key) => (
           <div className={key === currentUser ? "active-user" : ""}>
             <span
               style={{
-                minWidth: "30ch",
+                minWidth: "25ch",
                 //flex: "0 0 255px",
                 display: "flex",
                 alignItems: "center",
