@@ -6,7 +6,6 @@
 - eliminate or hide the test buttons
 - eliminate or change the the location of the user creation form.. perhaps replacing it with a link that opens the user creation modal
 - probably another navigation icon-button for going back to quesion-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
-- change npm script and server
 - fix: vercel + react router -> https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
 
 

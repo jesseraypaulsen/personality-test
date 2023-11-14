@@ -2,7 +2,8 @@
   "source": "index.html",
   "scripts": {
     "clean": "rm -rf dist && rm -rf .parcel-cache",
-    "start": "node server.js",
+    "start": "npx parcel index.html",
+    "_start": "node server.js",
     "build": "parcel build"
   },
   "dependencies": {
