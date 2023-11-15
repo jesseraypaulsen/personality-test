@@ -194,6 +194,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
                 scores={scores}
                 nextStep={nextStep}
                 backStep={backStep}
+                autoStep={autoStep}
               />
             }
           />
@@ -206,6 +207,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
                 scores={scores}
                 nextStep={nextStep}
                 backStep={backStep}
+                autoStep={autoStep}
               />
             }
           />

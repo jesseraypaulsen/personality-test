@@ -8,6 +8,7 @@ export default function Questionary({
   updateItemScore,
   nextStep,
   backStep,
+  autoStep
 }) {
   return (
     <Container
@@ -26,6 +27,7 @@ export default function Questionary({
       <ManualStepper
         nextStep={() => nextStep(selectedItem.id)}
         backStep={() => backStep(selectedItem.id)}
+        autoStep={autoStep}
       />
     </Container>
   );

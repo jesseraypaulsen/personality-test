@@ -41,15 +41,6 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
             <ManageAccountsIcon fontSize="large" sx={{ cursor: "pointer"}} />
           </Link>
         </Tooltip>
-        {/* <Tooltip title="Info">
-          <a
-            href="https://en.wikipedia.org/wiki/Big_Five_personality_traits"
-            target="_blank"
-            rel="noopener"
-          >
-            <InfoIcon fontSize="large" sx={{ cursor: "pointer" }} />
-          </a>
-        </Tooltip> */}
       </Toolbar>
     </AppBar>
   );

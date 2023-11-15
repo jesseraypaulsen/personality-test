@@ -1,11 +1,9 @@
 ## Todos
 
-- fix Users layout
-- add icon for Users in the Header
 - fix Barchart.. there's something strange about the size of the bars, they don't seem to accurately depict the relative scores.
 - style that emphasizes transition between Questions -- currently it's hard to perceive the change.
 - create hard-coded fake users with data, and then eliminate the option for auto-generationing data
-- probably another navigation icon-button for going back to quesion-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
+- probably another navigation icon-button for going back to question-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
 - fix: vercel + react router -> https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
 
 
