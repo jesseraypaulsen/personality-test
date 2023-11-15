@@ -11,12 +11,11 @@ export function UserSelectionMenu({
     <div className="userlist-container">
       <h2>All Users</h2>
       <div className="userlist">
-        {userList.map((key) => (
-          <div className={key === currentUser ? "active-user" : ""}>
+        {userList.map((key, i) => (
+          <div className={key === currentUser ? "active-user" : "idle-user"} key={i}>
             <span
               style={{
                 minWidth: "25ch",
-                //flex: "0 0 255px",
                 display: "flex",
                 alignItems: "center",
                 paddingLeft: "1em",

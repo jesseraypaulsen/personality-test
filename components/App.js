@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import Results from "./Results";
 import FormDialog from "./FormDialog";
+import Users from './Users'
 
 export function App({ inventory, processResults, generateFakeScores }) {
   const [modal, setModal] = useState(false);
@@ -214,6 +215,14 @@ export function App({ inventory, processResults, generateFakeScores }) {
               <Results
                 scores={scores}
                 getResults={getResults}
+                currentUser={currentUser}
+              />
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <Users
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 userList={userList}

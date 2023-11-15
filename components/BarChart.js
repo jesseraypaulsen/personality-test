@@ -39,5 +39,6 @@ export default function BarChart({ results }) {
           })
         : null}
     </div>
+
   );
 }

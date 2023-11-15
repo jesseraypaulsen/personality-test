@@ -1,5 +1,15 @@
 .report > div {
-  padding: .5rem;
+  padding: 0 1em 3.5em;
+}
+
+.domain-heading {
+  display: flex;
+  border-bottom: 1px solid gray;
+  margin-bottom: 1em;
+}
+
+.domain-heading h2 {
+  margin-bottom: 0;
 }
 
 table, th, td {
@@ -21,4 +31,9 @@ th, td {
 
 .neutral {
   background-color: lightgray;
+}
+
+.low, .high, .neutral {
+  padding: .3em;
+  margin-left: .8em;
 }

@@ -1,22 +1,11 @@
-//http://testsonthenet.com/Factors-facets.htm (5 factors, 30 facets)
-//https://css-tricks.com/making-a-bar-chart-with-css-grid/
-//the 6 facets per facet should use shades of the facet color, like Material palette
 import BarChart from "./BarChart";
-import { useState } from "react";
-import "../styles/dashboard.css";
-import { UserSelectionMenu } from "./UserSelectionMenu";
-import { NewUserForm } from "./NewUserForm";
 import { Report } from "./Report"
+import InfoIcon from "@mui/icons-material/Info";
 
 export default function Results({
   scores,
   getResults,
   currentUser,
-  setCurrentUser,
-  userList,
-  setUserList,
-  generate,
-  setGenerate,
 }) {
   const results = getResults(scores);
 
@@ -25,8 +14,6 @@ export default function Results({
       `factor: ${results[i].domain}, score: ${results[i].score}, count: ${results[i].count}`
     );
   }
-
-  const [newUsername, setNewUsername] = useState(null);
 
   /*
      {  domain
@@ -53,16 +40,26 @@ export default function Results({
         gap: "3em",
       }}
     >
-      <h1 style={{ padding: "1em" }}>{currentUser}</h1>
+      <div style={{ display: "flex", flexDirection: "column", paddingLeft: "1em"}}>
+        <h2>{currentUser}</h2>
+        <a
+            href="https://en.wikipedia.org/wiki/Big_Five_personality_traits"
+            target="_blank"
+            rel="noopener"
+            // style={{ alignSelf: "center"}}
+          >
+            <InfoIcon fontSize="large" color="action" sx={{ cursor: "pointer" }} />
+        </a>
+      </div>
       {scores.length === 120 ? (
-        <BarChart results={results} />
+        <><BarChart results={results} /><Report results={results} /></>
       ) : (
         <div style={{ alignSelf: "center" }}>
           You have answered {scores.length} out of 120 questions. Your results
           will display here after you've completed all of the questions.
         </div>
       )}
-      <hr
+      {/* <hr
         style={{
           border: "0",
           clear: "both",
@@ -71,25 +68,9 @@ export default function Results({
           backgroundColor: "#a0a0a0",
           height: "1px",
         }}
-      />{" "}
-      {/*https://stackoverflow.com/a/12640013 */}
-      <UserSelectionMenu
-        setCurrentUser={setCurrentUser}
-        currentUser={currentUser}
-        userList={userList}
-        setUserList={setUserList}
-      />
-      <NewUserForm
-        setNewUsername={setNewUsername}
-        newUsername={newUsername}
-        generate={generate}
-        setGenerate={setGenerate}
-        setCurrentUser={setCurrentUser}
-        userList={userList}
-        setUserList={setUserList}
-      />
-      <TempButtons scores={scores} /> {/*for testing purposes only*/}
-      <Report results={results} />
+      />{" "} */}
+      {/* <TempButtons scores={scores} /> */}
+      {/* <Report results={results} /> */}
     </div>
   );
 }

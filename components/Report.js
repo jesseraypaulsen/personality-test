@@ -1,12 +1,20 @@
 
 import "../styles/report.css"
 
+const chopTitle = (title) => {
+  // "Openness To Experience" breaks on small screens
+  return title.split(' ')[0]
+}
+
 export const Report = ({results}) => {
   return <div class="report">
     {results.map(r => <div>
-      <h2 className={r.scoreText}>{r.title}</h2>
-      <div>{r.scoreText}</div>
-      <div>{r.text}</div>
+      <div className="domain-heading">
+        {/* <h2>{r.title}</h2> */}
+        <h2>{chopTitle(r.title)}</h2>
+        <div><div className={r.scoreText}>{r.scoreText.toUpperCase()}</div></div>
+      </div>
+      <div style={{ padding: "0 0 2em"}}>{r.text}</div>
       {/* Vertical Headings: https://stackoverflow.com/a/31408141 */}
       <table className="facets">{r.facets.map(f => <tr>
         <th>{f.title} </th> <td>{f.scoreText}</td>

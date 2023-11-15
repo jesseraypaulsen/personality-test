@@ -10,7 +10,7 @@ export function NewUserForm({
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      style={{ alignSelf: "center", border: "1px solid black", padding: "1em" }}
+      style={{ alignSelf: "center", border: "1px solid black", padding: "1em", display: "inline-block" }}
     >
       <h2>Create a new user</h2>
       <div
@@ -24,7 +24,7 @@ export function NewUserForm({
         <input
           type="text"
           placeholder="type username here..."
-          maxlength="25"
+          maxLength="25"
           onChange={(e) => setNewUsername(e.target.value)}
         ></input>
         <button
@@ -50,7 +50,7 @@ export function NewUserForm({
             name="generator"
             onChange={(e) => setGenerate(e.target.checked)}
           ></input>
-          <label for="generator">Generate Data</label>
+          <label htmlFor="generator">Generate Data</label>
         </div>
       </div>
     </form>

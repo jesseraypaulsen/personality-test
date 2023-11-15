@@ -1,9 +1,7 @@
 import ListIcon from "@mui/icons-material/List";
-import InfoIcon from "@mui/icons-material/Info";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
@@ -37,7 +35,12 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
             color="default"
           />
         </Tooltip>
-        <Tooltip title="Info">
+        <Tooltip title="Users">
+          <Link to="users">
+            Users
+          </Link>
+        </Tooltip>
+        {/* <Tooltip title="Info">
           <a
             href="https://en.wikipedia.org/wiki/Big_Five_personality_traits"
             target="_blank"
@@ -45,7 +48,7 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
           >
             <InfoIcon fontSize="large" sx={{ cursor: "pointer" }} />
           </a>
-        </Tooltip>
+        </Tooltip> */}
       </Toolbar>
     </AppBar>
   );
