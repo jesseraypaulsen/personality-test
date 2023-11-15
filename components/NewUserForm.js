@@ -10,12 +10,12 @@ export function NewUserForm({
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      style={{ alignSelf: "center", border: "1px solid black", padding: "1em", display: "inline-block" }}
+      style={{ alignSelf: "flex-start" }}
     >
       <h2>Create a new user</h2>
       <div
         style={{
-          display: "flex",
+          // display: "flex",
           flexDirection: "column",
           alignItems: "center",
           gap: "1em",
@@ -40,17 +40,18 @@ export function NewUserForm({
               setUserList((prev) => [...prev, newUsername]);
             }
           }}
+          style={{marginLeft: ".2em"}}
         >
-          OK
+          Create
         </button>
-        <div style={{ display: "flex" }}>
+        <div style={{marginTop: ".5em"}}>
           <input
             type="checkbox"
             value={generate}
             name="generator"
             onChange={(e) => setGenerate(e.target.checked)}
           ></input>
-          <label htmlFor="generator">Generate Data</label>
+          <label htmlFor="generator" style={{ fontSize: ".8em"}}>With Dummy Data</label>
         </div>
       </div>
     </form>

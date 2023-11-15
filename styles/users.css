@@ -1,9 +1,17 @@
 
-.userlist-container {
-  display: inline-flex;
+.user-operations-container {
+  display: flex;
+  min-height: 70vh;
   flex-direction: column;
-  align-self: center;
-  gap: 1em;
+  justify-content: space-around;
+  padding-left: 1em;
+}
+
+.userlist-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  /* gap: 1em; */
 }
 
 .userlist-button {
