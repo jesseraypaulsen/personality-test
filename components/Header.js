@@ -1,5 +1,6 @@
-import ListIcon from "@mui/icons-material/List";
+import ListIcon from "@mui/icons-material/List"; //https://mui.com/material-ui/material-icons/
 import BarChartIcon from "@mui/icons-material/BarChart";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
@@ -37,7 +38,7 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
         </Tooltip>
         <Tooltip title="Users">
           <Link to="users">
-            Users
+            <ManageAccountsIcon fontSize="large" sx={{ cursor: "pointer"}} />
           </Link>
         </Tooltip>
         {/* <Tooltip title="Info">
