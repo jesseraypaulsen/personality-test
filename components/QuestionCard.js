@@ -8,17 +8,30 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import { useEffect, useState } from "react";
+import "../styles/card.css"
 
 export default function QuestionCard({
   selectedItem,
   updateItemScore,
   scores,
 }) {
+
+  const [opacity, setOpacity] = useState("0")
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity("1")
+    }, 1000)
+  }, [])
+
   return (
     <Card
       sx={{
         mx: "auto",
+        opacity
       }}
+      className="fade-in"
     >
       {/* mx is margin-left and margin-right; see https://mui.com/system/the-sx-prop/#spacing */}
       <CardHeader title={selectedItem.text} titleTypographyProps={{}} />
