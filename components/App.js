@@ -125,8 +125,10 @@ export function App({ inventory, processResults, generateFakeScores }) {
 
   const nextStep = (id) => {
     let currIndex = inventory.findIndex((item) => item.id === id);
+    console.log('currIndex: ', currIndex)
     let nextItem = inventory[currIndex + 1];
-    if (currIndex < 120) setSelectedItem(nextItem);
+    if (currIndex < 119) setSelectedItem(nextItem);
+    else navigate("/results")
   };
 
   const backStep = (id) => {

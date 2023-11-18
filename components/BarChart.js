@@ -12,10 +12,6 @@ import "../styles/barchart.css";
 
 export default function BarChart({ results }) {
   const colors = ["yellow", "orange", "blue", "green", "red"];
-  results.forEach(r => {
-    const modifiedScore = r.score - 24
-    console.log(r.domain, r.score, '->', modifiedScore)
-  })
   return (
     <div class="chart">
       {results[0]
