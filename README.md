@@ -2,10 +2,9 @@
 
 - probably another navigation icon-button for going back to question-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
 
-- fix: vercel + react router -> https://stackoverflow.com/questions/64815012/why-does-react-router-not-works-at-vercel
+---
 
-
-### Notes on Application Logic
+# Notes on Application Logic
 
 ## use cases for the _Question_ entity
 
