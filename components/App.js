@@ -218,6 +218,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
                 scores={scores}
                 getResults={getResults}
                 currentUser={currentUser}
+                inventory={inventory}
               />
             }
           />

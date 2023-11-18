@@ -8,6 +8,7 @@ The common use case is plotting a thing that changes over time -- where each bar
 is an instance of the same thing over time, and often its a grouping of things (see example above).
 This data is not distributed over time. It's just the tallied scores distributed over 
 five factors. 
+
 Importing Sass files results in "segmentation fault (core dumped)." It breaks the
 app, and stalls the terminal command-line such that you have to kill it and start a 
 new one. This is a problem in Node.js and Parcel. 
@@ -18,10 +19,12 @@ article (above) instead of Sass.
 
 export default function BarChart({ results }) {
   const colors = ["yellow", "orange", "blue", "green", "red"];
+  
   return (
     <div class="chart">
       {results[0]
         ? results.map((result, i) => {
+            //result = result - 24;
             return (
               <div
                 className={`bar-${i + 1}`}

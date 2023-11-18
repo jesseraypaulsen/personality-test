@@ -6,14 +6,11 @@ export default function Results({
   scores,
   getResults,
   currentUser,
+  inventory
 }) {
-  const results = getResults(scores);
 
-  for (let i = 0; i < results.length; i++) {
-    console.log(
-      `factor: ${results[i].domain}, score: ${results[i].score}, count: ${results[i].count}`
-    );
-  }
+
+  const results = oceanSort(getResults(scores));
 
   /*
      {  domain
@@ -46,7 +43,6 @@ export default function Results({
             href="https://en.wikipedia.org/wiki/Big_Five_personality_traits"
             target="_blank"
             rel="noopener"
-            // style={{ alignSelf: "center"}}
           >
             <InfoIcon fontSize="large" color="action" sx={{ cursor: "pointer" }} />
         </a>
@@ -59,29 +55,24 @@ export default function Results({
           will display here after you've completed all of the questions.
         </div>
       )}
-      {/* <hr
-        style={{
-          border: "0",
-          clear: "both",
-          display: "block",
-          width: "96%",
-          backgroundColor: "#a0a0a0",
-          height: "1px",
-        }}
-      />{" "} */}
-      {/* <TempButtons scores={scores} /> */}
-      {/* <Report results={results} /> */}
+      {/* <TempButtons scores={scores} results={results} inventory={inventory} /> */}
     </div>
   );
 }
 
+const oceanSort = (results) => ['O','C','E','A','N'].map(letter => results.find(r => r.domain == letter))
+
+
 // for testing, not for production
-function TempButtons({ scores }) {
+function TempButtons({ scores, results, inventory }) {
+  const truncatedResults = results.map(r => ([r.domain, r.score]))
   return (
     <div style={{ alignSelf: "center" }}>
       <button onClick={() => localStorage.clear()}>Clear Storage</button>
       <button onClick={() => console.log(localStorage)}>Show Storage</button>
       <button onClick={() => console.log(scores)}>Show Scores</button>
+      <button onClick={() => console.log(truncatedResults)}>Show Final Results</button>
+      <button onClick={() => console.log(inventory)}>Show Raw Inventory</button>
     </div>
   );
 }

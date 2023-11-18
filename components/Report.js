@@ -10,7 +10,6 @@ export const Report = ({results}) => {
   return <div class="report">
     {results.map(r => <div>
       <div className="domain-heading">
-        {/* <h2>{r.title}</h2> */}
         <h2>{chopTitle(r.title)}</h2>
         <div><div className={r.scoreText}>{r.scoreText.toUpperCase()}</div></div>
       </div>

@@ -17,10 +17,8 @@ export default function QuestionCard({
   return (
     <Card
       sx={{
-        // backgroundColor: "primary.dark",
         mx: "auto",
       }}
-      //data-itemid={selectedItem.id}
     >
       {/* mx is margin-left and margin-right; see https://mui.com/system/the-sx-prop/#spacing */}
       <CardHeader title={selectedItem.text} titleTypographyProps={{}} />
@@ -37,7 +35,6 @@ export default function QuestionCard({
 
 function RadioButtonsGroup({ selectedItem, updateItemScore, scores }) {
   let score = scores.find((s) => s.id === selectedItem.id);
-  //if (score) console.log(`the score is set to: ${score.value}`);
   let scoreCheck = score ? score.value : null;
   return (
     <>
