@@ -81,8 +81,11 @@ export const generateFakeScores = function (inventory) {
 
 const selectDomainInput = () => {
   const items = [
-    // [["O", 120], ["C", 72], ["E", 24], ["A", 72], ["N", 120]],
-    [["O", 24], ["C", 72], ["E", 58], ["A", 86], ["N", 120]],
+    [["O", 120], ["C", 72], ["E", 24], ["A", 72], ["N", 120]],
+    [["O", 40], ["C", 72], ["E", 58], ["A", 86], ["N", 120]],
+    [["O", 120], ["C", 72], ["E", 57], ["A", 87], ["N", 30]],
+    [["O", 110], ["C", 103], ["E", 94], ["A", 30], ["N", 37]],
+    [["O", 92], ["C", 26], ["E", 94], ["A", 30], ["N", 107]],
   ]
   //https://stackoverflow.com/a/5915122
   return items[items.length * Math.random() | 0]

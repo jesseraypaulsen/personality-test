@@ -1,0 +1,31 @@
+.chart {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(96, 1fr) 10fr;
+  height: 30em;
+  width: 35vw;
+  margin: 0 auto;
+  padding: 2em;
+  background-color: #fff;
+  box-shadow: 0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;
+  grid-column-gap: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart {
+    width: 80vw;
+    height: 20em;
+    grid-column-gap: 1em;
+  }
+}
+
+.chart [class*="bar"] {
+  grid-row-start: 1;
+  grid-row-end: 97;
+}
+
+.chart [class*="label"] {
+  grid-row-start: 98;
+  grid-row-end: 100;
+  justify-self: center;
+}
