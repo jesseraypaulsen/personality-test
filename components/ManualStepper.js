@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-export default function ManualStepper({ nextStep, backStep, autoStep }) {
+export default function ManualStepper({ nextStep, backStep }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Button onClick={backStep}>

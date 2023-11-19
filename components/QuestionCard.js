@@ -8,7 +8,6 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
-import { useEffect, useState } from "react";
 import "../styles/card.css"
 
 export default function QuestionCard({
@@ -17,19 +16,11 @@ export default function QuestionCard({
   scores,
 }) {
 
-  const [opacity, setOpacity] = useState("0")
-
-  useEffect(() => {
-    setTimeout(() => {
-      setOpacity("1")
-    }, 1000)
-  }, [])
 
   return (
     <Card
       sx={{
         mx: "auto",
-        opacity
       }}
       className="fade-in"
     >
@@ -58,7 +49,6 @@ function RadioButtonsGroup({ selectedItem, updateItemScore, scores }) {
             name="radio-buttons-group"
             value={selectedItem.choice}
             onChange={(e) => {
-              console.log(e.target.value);
               updateItemScore(selectedItem.id, e.target.value);
             }}
           >
