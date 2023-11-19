@@ -5,6 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Switch from "@mui/material/Switch";
+import { AutoStepAlert } from "./AutoStepAlert";
 import { Link } from "react-router-dom";
 
 export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
@@ -29,13 +30,16 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
             />
           </Link>
         </Tooltip>
-        <Tooltip title="Auto-step">
-          <Switch
-            checked={autoStep}
-            onChange={toggleAutoStep}
-            color="default"
-          />
-        </Tooltip>
+        <span style={{position:"relative"}}>
+          <Tooltip title="Auto-step">
+            <Switch
+              checked={autoStep}
+              onChange={toggleAutoStep}
+              color="default"
+            />
+          </Tooltip>
+          <AutoStepAlert autoStep={autoStep} />
+        </span>
         <Tooltip title="Users">
           <Link to="users">
             <ManageAccountsIcon fontSize="large" sx={{ cursor: "pointer"}} />

@@ -10,7 +10,6 @@ export default function ManualStepper({ nextStep, backStep, autoStep }) {
         <KeyboardArrowLeft fontSize="large" />
         Back
       </Button>
-      {autoStep ? null : <span style={{ fontSize: ".7em", color: "gray", alignSelf: "flex-end"}}>Auto-Step is disabled.. flip the switch above to turn it back on.</span>}
       <Button onClick={nextStep}>
         Next
         <KeyboardArrowRight fontSize="large" />
