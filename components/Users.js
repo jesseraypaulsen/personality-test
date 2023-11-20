@@ -7,7 +7,7 @@ import "../styles/users.css";
 export default function Users ({ currentUser, setCurrentUser, userList, setUserList, generate, setGenerate }) {
   const [newUsername, setNewUsername] = useState(null);
 
-  return <div class="user-operations-container">
+  return <div className="user-operations-container">
         <UserSelectionMenu
           setCurrentUser={setCurrentUser}
           currentUser={currentUser}

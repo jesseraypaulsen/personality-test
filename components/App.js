@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Questionary from "./Questionary";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Layout from "./Layout";
 import Results from "./Results";
 import FormDialog from "./FormDialog";
@@ -117,6 +117,12 @@ export function App({ inventory, processResults, generateFakeScores }) {
     }
   }, [currentUser]);
 
+  const location = useLocation()
+
+  useEffect(() => {
+    console.log(location)
+  }, [location])
+
   const getResults = (scores) => processResults(inventory, scores);
 
   const isScored = (id) => {
@@ -183,6 +189,7 @@ export function App({ inventory, processResults, generateFakeScores }) {
               open={open}
               setAutoStep={setAutoStep}
               len={scores.length}
+              location={location}
             />
           }
         >

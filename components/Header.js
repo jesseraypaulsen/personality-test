@@ -8,7 +8,7 @@ import Switch from "@mui/material/Switch";
 import { AutoStepAlert } from "./AutoStepAlert";
 import { Link } from "react-router-dom";
 
-export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
+export default function Header({ setOpen, autoStep, toggleAutoStep, len, location }) {
   return (
     <AppBar sx={{ position: "static" }}>
       <Toolbar sx={{ justifyContent: "space-evenly" }}>
@@ -38,7 +38,7 @@ export default function Header({ setOpen, autoStep, toggleAutoStep, len }) {
               color="default"
             />
           </Tooltip>
-          <AutoStepAlert autoStep={autoStep} />
+          <AutoStepAlert autoStep={autoStep} location={location} />
         </span>
         <Tooltip title="Users">
           <Link to="users">
