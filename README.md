@@ -1,9 +1,3 @@
-## Todos
-
-- probably another navigation icon-button for going back to question-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
-
----
-
 # Notes on Application Logic
 
 ## use cases for the _Question_ entity
@@ -29,3 +23,8 @@ For nextStep and backStep, the question is retrieved from inventory variable and
 
 Beginning a new session: if localStorage has a "currentUser" key then setCurrentUser (in first useEffect) and setScores (in second useEffect). Or block further action with a modal until the user creates a name - at which point call setCurrentUser and setScores([]).
 Each scenario must update both currentUser and scores states.
+
+## Todos
+
+- probably another navigation icon-button for going back to question-answering when you're on the dashboard, because currently you have to click on the inventory button and while that does take the user back to question-answering it also opens the Inventory Bar
+
